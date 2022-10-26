@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
-    android:overScrollMode="never"
+    
     android:padding="@dimen/_24sdp"
     android:scrollbars="none"
     tools:context=".activities.SignUpActivity">
@@ -58,6 +58,18 @@
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
             android:inputType="text"
+            android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_16sdp"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/_13ssp"/>
+
+        <Spinner
+            android:id="@+id/register_spinner_rol"
+            android:background="@drawable/fondo_input"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_width="match_parent"
+            android:imeOptions="actionNext"
+            android:layout_height="@dimen/_45sdp"
             android:paddingStart="@dimen/_16sdp"
             android:paddingEnd="@dimen/_16sdp"
             android:textColor="@color/primary_text"

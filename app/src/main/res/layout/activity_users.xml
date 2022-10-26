@@ -22,16 +22,18 @@
         app:riv_oval="true" />
 
     <TextView
+        android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/chat"
+        android:text="username"
         android:textColor="@color/white"
         android:textSize="@dimen/_18ssp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/fotoPerfil"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/fotoPerfil" />
+        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintStart_toEndOf="@+id/fotoPerfil"
+        app:layout_constraintTop_toTopOf="@id/fotoPerfil"
+        app:layout_constraintVertical_bias="0.0" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -40,6 +42,18 @@
         android:background="@drawable/background_content_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fotoPerfil">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_130sdp"
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:text="Chats"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/_18ssp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/fotoPerfil"/>
 
 
         <com.google.android.material.bottomappbar.BottomAppBar
@@ -50,53 +64,32 @@
             app:backgroundTint="@color/primary"
             tools:ignore="BottomAppBar">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageChat"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_marginStart="@dimen/_55sdp"
-                android:layout_marginLeft="@dimen/_55sdp"
-                android:background="@drawable/drawable_icon"
-                android:padding="@dimen/_6sdp"
-                android:src="@drawable/ic_chat"
-                android:tint="@color/white" />
+            <com.google.android.material.tabs.TabLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_12ssp"
+                android:background="@color/primary"
+                app:tabIndicator="@color/white">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageTeams"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_marginStart="@dimen/_55sdp"
-                android:layout_marginLeft="@dimen/_55sdp"
-                android:background="@drawable/drawable_icon"
-                android:padding="@dimen/_6sdp"
-                android:src="@drawable/ic_teams"
-                android:tint="@color/white" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/imageTareas"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_marginStart="@dimen/_55sdp"
-                android:layout_marginLeft="@dimen/_55sdp"
-                android:background="@drawable/drawable_icon"
-                android:padding="@dimen/_6sdp"
-                android:src="@drawable/ic_tareas"
-                android:tint="@color/white" />
+            </com.google.android.material.tabs.TabLayout>
 
 
         </com.google.android.material.bottomappbar.BottomAppBar>
 
-        <!--        <ScrollView-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="match_parent"-->
-        <!--            android:layout_marginEnd="4dp"-->
-        <!--            android:layout_marginTop="4dp">-->
-        <!--            <androidx.recyclerview.widget.RecyclerView-->
-        <!--                android:id="@+id/usersRecyclerView"-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="match_parent"-->
-        <!--                tools:listitem="@layout/item_user"/>-->
-        <!--        </ScrollView>-->
+        <androidx.viewpager.widget.ViewPager
+            android:id="@id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.viewpager.widget.ViewPager>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.viewpager.widget.ViewPager>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/usersRecyclerView"
@@ -106,6 +99,7 @@
             android:orientation="vertical"
             android:overScrollMode="never"
             android:padding="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_30sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_container_user" />
 

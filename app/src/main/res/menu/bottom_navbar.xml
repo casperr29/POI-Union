@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Chats"
+        android:id="@+id/chats"
+        android:icon="@drawable/ic_chat"
+        />
+    <item android:title="Grupos"
+        android:id="@+id/grupos"
+        android:icon="@drawable/ic_teams"/>
+    <item android:title="Tareas"
+        android:id="@+id/tareas"
+        android:icon="@drawable/ic_tareas"/>
+    <item android:title="Salir"
+        android:id="@+id/salir"
+        android:icon="@drawable/ic_salir"/>
+</menu>
