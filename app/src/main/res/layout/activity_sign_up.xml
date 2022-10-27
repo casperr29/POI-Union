@@ -111,11 +111,15 @@
             android:hint="@string/contrase_a"
             android:imeOptions="actionNext"
             android:importantForAutofill="no"
+
             android:inputType="textPassword"
             android:paddingStart="@dimen/_16sdp"
             android:paddingEnd="@dimen/_16sdp"
             android:textColor="@color/primary_text"
-            android:textSize="@dimen/_13ssp"/>
+            android:textSize="@dimen/_13ssp"
+            />
+
+
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/botonSignIn"
@@ -128,6 +132,8 @@
             android:textStyle="bold"
             app:cornerRadius="@dimen/_8sdp"/>
 
+
+
         <TextView
             android:id="@+id/textoLogIn"
             android:layout_width="wrap_content"
@@ -139,6 +145,24 @@
             android:textStyle="bold"
             />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:rotation="180"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:indeterminateTint="@color/primary"
+            android:visibility="invisible"
+          />
+
+
+
     </LinearLayout>
+
+
 
 </ScrollView>
