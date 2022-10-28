@@ -24,7 +24,8 @@ class ChatsFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_chats, container, false)
 
-        val search = view.findViewById<ListView>(R.id.busqueda)
+        val search = view.findViewById<SearchView>(R.id.busqueda)
+        val listView=view.findViewById<ListView>(R.id.list_view)
 
 
         val user= arrayOf("Arely","Dhary","Mariana","Alan")
@@ -35,20 +36,20 @@ class ChatsFragment : Fragment() {
             user
         )
 
-        list_view.adapter=adapter
+        listView.adapter=adapter
 
-        busqueda.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(p0: String): Boolean {
                 search.clearFocus()
-                if(user.contains(query)){
-                    adapter.filter.filter(query)
+                if(user.contains(p0)){
+                    adapter.filter.filter(p0)
                 }else{
                     Toast.makeText( requireActivity().baseContext,"Usuario no encontrado", Toast.LENGTH_SHORT).show()
                 }
                 return false
             }
-            override fun onQueryTextChange(newText: String): Boolean {
-                adapter.filter.filter(newText)
+            override fun onQueryTextChange(p0: String): Boolean {
+                adapter.filter.filter(p0)
                 return false
             }
         })
