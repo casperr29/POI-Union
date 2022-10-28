@@ -10,6 +10,5 @@ class Users {
     var Contrasena:String=""
 
 
-
 //    var Carrera : DocumentReference? = null
 }

@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        replaceFragment(GruposFragment())
+        replaceFragment(ChatsFragment())
 
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId){
