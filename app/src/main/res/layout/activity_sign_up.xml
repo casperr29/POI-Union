@@ -120,19 +120,16 @@
             />
 
 
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/botonSignIn"
+        <Button
+            android:id="@+id/botonLogin2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
             android:layout_marginTop="@dimen/_20sdp"
-            android:text="@string/crear_cuenta"
+            android:text="@string/iniciar_sesi_n"
             android:textColor="@color/white"
             android:textSize="@dimen/_13ssp"
             android:textStyle="bold"
-            app:cornerRadius="@dimen/_8sdp"/>
-
-
+            app:cornerRadius="@dimen/_8sdp" />
 
         <TextView
             android:id="@+id/textoLogIn"
