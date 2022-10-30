@@ -32,42 +32,44 @@ class ChatsFragment : Fragment() {
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_chats, container, false)
 
-        val search = view.findViewById<SearchView>(R.id.busqueda)
+        //val search = view.findViewById<SearchView>(R.id.busqueda)
         //val listView=view.findViewById<ListView>(R.id.list_view)
 
-        val recyclerView=view.findViewById<RecyclerView>(R.id.list_view)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.list_view)
         recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager=LinearLayoutManager(requireActivity().baseContext)
+        recyclerView.layoutManager = LinearLayoutManager(requireActivity().baseContext)
 
-        mensajeList=ArrayList()
+        mensajeList = ArrayList()
 
-        mensajeList.add(Mensajes(R.drawable.mujer1,"Arely","Hola ¿Cómo haz estado?","7:00pm"))
-        mensajeList.add(Mensajes(R.drawable.mujer2,"Dhary","¿Tienes clase?","5:11pm"))
-        mensajeList.add(Mensajes(R.drawable.hombre1,"Rafael","Okey","7:25pm"))
-        mensajeList.add(Mensajes(R.drawable.mujer3,"Mariana","Listo, ya quedó","2:15pm"))
-        mensajeList.add(Mensajes(R.drawable.hombre1,"Alan","Nono","8:03pm"))
-        mensajeList.add(Mensajes(R.drawable.mujer1,"Monica","Todo bien","4:46pm"))
-        mensajeList.add(Mensajes(R.drawable.mujer2,"Lorena","¿Hay tarea?","5:15pm"))
+        mensajeList.add(Mensajes(R.drawable.mujer1, "Arely", "Hola ¿Cómo haz estado?", "7:00pm"))
+        mensajeList.add(Mensajes(R.drawable.mujer2, "Dhary", "¿Tienes clase?", "5:11pm"))
+        mensajeList.add(Mensajes(R.drawable.hombre1, "Rafael", "Okey", "7:25pm"))
+        mensajeList.add(Mensajes(R.drawable.mujer3, "Mariana", "Listo, ya quedó", "2:15pm"))
+        mensajeList.add(Mensajes(R.drawable.hombre1, "Alan", "Nono", "8:03pm"))
+        mensajeList.add(Mensajes(R.drawable.mujer1, "Monica", "Todo bien", "4:46pm"))
+        mensajeList.add(Mensajes(R.drawable.mujer2, "Lorena", "¿Hay tarea?", "5:15pm"))
 
-        mensajesAdapter= MensajesAdapter(mensajeList)
-        recyclerView.adapter=mensajesAdapter
+        mensajesAdapter = MensajesAdapter(mensajeList)
+        recyclerView.adapter = mensajesAdapter
+
+
 
 
         //Con esto obtiene el arreglo
 
-        val names=arrayOf("Hola","Sirve?")
-        
+        /*val names=arrayOf("Hola","Sirve?")
+
         val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
             requireActivity().baseContext,
             android.R.layout.simple_list_item_1,
             names
-        )
+        )*/
 
         //listView.adapter=adapter
 
 
         //FUNCION PARA EL SEARCH
-        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+       /* search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(p0: String): Boolean {
                 search.clearFocus()
                 if(names.contains(p0)){
@@ -81,7 +83,7 @@ class ChatsFragment : Fragment() {
                 adapter.filter.filter(p0)
                 return false
             }
-        })
+        })*/
 
 
         return view

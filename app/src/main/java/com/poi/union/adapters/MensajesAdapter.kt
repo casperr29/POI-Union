@@ -1,5 +1,6 @@
 package com.poi.union.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.poi.union.R
+import com.poi.union.activities.MessagesActivity
 import com.poi.union.models.Mensajes
+import javax.inject.Singleton
 
 class MensajesAdapter(private val messageList:ArrayList<Mensajes>)
     :RecyclerView.Adapter<MensajesAdapter.mensajesViewHolder>(){
@@ -34,7 +37,17 @@ class MensajesAdapter(private val messageList:ArrayList<Mensajes>)
         holder.mensajeView.text=mensaje.lastMsg
         holder.horaView.text=mensaje.lastMsgTime
 
+        holder.nombreView.setOnClickListener{
+            val nombre=mensaje.name
+            val intent=Intent(holder.itemView.context,MessagesActivity::class.java)
+            intent.putExtra("name",mensaje.name)
+            intent.putExtra("image",mensaje.image)
+            holder.itemView.context.startActivity(intent)
+        }
+
     }
+
+
 
     override fun getItemCount(): Int {
        return messageList.size
