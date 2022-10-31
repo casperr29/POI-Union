@@ -1,10 +1,14 @@
 package com.poi.union.Fragments
 
+import android.content.Intent
+import android.os.Binder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -12,7 +16,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.poi.union.R
+import com.poi.union.activities.SelectUsersGroupCharActivity
+import com.poi.union.activities.SignUpActivity
 import com.poi.union.adapters.MensajesAdapter
+import com.poi.union.databinding.ActivitySelectUsersGroupCharBinding
 import com.poi.union.databinding.FragmentChatsBinding
 import com.poi.union.models.Mensajes
 import kotlinx.android.synthetic.main.fragment_chats.*
@@ -29,8 +36,22 @@ class ChatsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
+
         // Inflate the layout for this fragment
         val view: View = inflater.inflate(R.layout.fragment_chats, container, false)
+
+        /////Crear grupo//////
+
+        val create=FragmentChatsBinding.inflate(layoutInflater)
+
+        create.create.setOnClickListener{
+            val intent=Intent(requireActivity().baseContext,SelectUsersGroupCharActivity::class.java)
+            startActivity(intent)
+        }
+
+        /////////////////////
 
         //val search = view.findViewById<SearchView>(R.id.busqueda)
         //val listView=view.findViewById<ListView>(R.id.list_view)

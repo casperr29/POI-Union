@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.poi.union.R
 import com.poi.union.activities.MessagesActivity
+import com.poi.union.activities.SelectUsersGroupCharActivity
 import com.poi.union.models.Mensajes
 import javax.inject.Singleton
 
@@ -36,6 +37,7 @@ class MensajesAdapter(private val messageList:ArrayList<Mensajes>)
         holder.nombreView.text=mensaje.name
         holder.mensajeView.text=mensaje.lastMsg
         holder.horaView.text=mensaje.lastMsgTime
+
 
         holder.nombreView.setOnClickListener{
             val nombre=mensaje.name
