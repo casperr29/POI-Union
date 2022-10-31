@@ -79,7 +79,7 @@ class SignUpActivity : AppCompatActivity() {
                val myIntent =  Intent(this, MainActivity::class.java)
                startActivity(myIntent)
                finish()
-            }
+           }
 
         }
 
@@ -195,24 +195,23 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     fun validation():Boolean{
-        var isValid=true
 
         if(binding.inputNombreCompleto.text.isNullOrEmpty()){
-            isValid=false
             Toast.makeText( this,"Ingrese su nombre", Toast.LENGTH_SHORT).show()
+            return false
         }
 
         if(binding.inputEmail.text.isNullOrEmpty()){
-            isValid=false
             Toast.makeText( this,"Ingrese su correo", Toast.LENGTH_SHORT).show()
+            return false
         }
 
         if(binding.inputContrasena.text.isNullOrEmpty()){
-            isValid=false
             Toast.makeText( this,"Ingrese contraseña", Toast.LENGTH_SHORT).show()
+            return false
         }
 
-        return isValid
+        return true
     }
 
 }
