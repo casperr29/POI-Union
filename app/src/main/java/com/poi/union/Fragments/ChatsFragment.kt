@@ -23,6 +23,7 @@ import com.poi.union.databinding.ActivitySelectUsersGroupCharBinding
 import com.poi.union.databinding.FragmentChatsBinding
 import com.poi.union.models.Mensajes
 import kotlinx.android.synthetic.main.fragment_chats.*
+import kotlinx.android.synthetic.main.fragment_chats.view.*
 import java.util.Objects
 
 class ChatsFragment : Fragment() {
@@ -44,11 +45,11 @@ class ChatsFragment : Fragment() {
 
         /////Crear grupo//////
 
-        val create=FragmentChatsBinding.inflate(layoutInflater)
+        val create = view.findViewById<ImageView>(R.id.create)
 
-        create.create.setOnClickListener{
-            val intent=Intent(requireActivity().baseContext,SelectUsersGroupCharActivity::class.java)
-            startActivity(intent)
+        view.create.setOnClickListener{
+            val intent=Intent(getActivity(),SelectUsersGroupCharActivity::class.java)
+            getActivity()?.startActivity(intent)
         }
 
         /////////////////////

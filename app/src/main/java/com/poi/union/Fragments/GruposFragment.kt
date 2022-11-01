@@ -27,7 +27,7 @@ class GruposFragment : Fragment() {
         val grupos= arrayOf("Programación web de capa intermedia", "Programación orienteada a objetos", "Animación tradicional de humanos y animales", "" +
                 "Base de datos multimedia", "Animación de escenarios", "Programación Web 2")
 
-            val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
+        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
             requireActivity().baseContext,
             android.R.layout.simple_list_item_1,
             grupos
