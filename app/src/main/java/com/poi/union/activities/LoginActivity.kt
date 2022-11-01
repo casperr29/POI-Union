@@ -2,6 +2,7 @@ package com.poi.union.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
@@ -101,14 +102,16 @@ class LoginActivity : AppCompatActivity() {
             return false
         }
 
-        var userTemp = userList.find { it.Email.equals(email)} // && it.Contrasena.equals(password)
+        var userTemp = userList.find { it.Email.equals(email)}
+        var userTemp1 =  userList.find { it.Contrasena.equals(password)}// && it.Contrasena.equals(password)
 
-        if(userTemp == null){
+        //si entra, pero no hace diferencia entre todos los datos de la base de datos
+        if(TextUtils.isEmpty(userTemp.toString()) && TextUtils.isEmpty(userTemp1.toString())){
             Toast.makeText( this,"No existe esta cuenta", Toast.LENGTH_SHORT).show()
             return false
-        }else if(!userTemp.Contrasena.equals(password)){
+        }/*else if(!userTemp.Contrasena.equals(password)){
             Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
-        }
+        }*/
 
         return true
     }
