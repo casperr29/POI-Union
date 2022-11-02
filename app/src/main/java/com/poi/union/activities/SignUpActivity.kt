@@ -59,27 +59,27 @@ class SignUpActivity : AppCompatActivity() {
         val btn_signin = findViewById<Button>(R.id.botonLogin2)
 
         btn_signin.setOnClickListener{
-           if (validation()) {
-               val usernombre = findViewById<EditText>(R.id.inputNombreCompleto)
-               val useremail = findViewById<EditText>(R.id.inputEmail)
-               val usercontrasena = findViewById<EditText>(R.id.inputContrasena)
+            if (validation()) {
+                val usernombre = findViewById<EditText>(R.id.inputNombreCompleto)
+                val useremail = findViewById<EditText>(R.id.inputEmail)
+                val usercontrasena = findViewById<EditText>(R.id.inputContrasena)
 
-               loading(true)
-               var usuario = HashMap<String, Any>()
-               usuario[Constantes.KEY_NAME] = usernombre.text.toString()
-               usuario[Constantes.KEY_EMAIL] = useremail.text.toString()
-               usuario[Constantes.KEY_PASSWORD] = usercontrasena.text.toString()
-               usuario[Constantes.KEY_ROL] = userrol
-               usuario[Constantes.KEY_CARRERA] = usercarrera
-               usuario[Constantes.KEY_IMAGE] = encodedImage
+                loading(true)
+                var usuario = HashMap<String, Any>()
+                usuario[Constantes.KEY_NAME] = usernombre.text.toString()
+                usuario[Constantes.KEY_EMAIL] = useremail.text.toString()
+                usuario[Constantes.KEY_PASSWORD] = usercontrasena.text.toString()
+                usuario[Constantes.KEY_ROL] = userrol
+                usuario[Constantes.KEY_CARRERA] = usercarrera
+                usuario[Constantes.KEY_IMAGE] = encodedImage
 
-               val userfirebase = userref.push()
-               userfirebase.setValue(usuario)
+                val userfirebase = userref.push()
+                userfirebase.setValue(usuario)
 
-               val myIntent =  Intent(this, MainActivity::class.java)
-               startActivity(myIntent)
-               finish()
-           }
+                val myIntent =  Intent(this, MainActivity::class.java)
+                startActivity(myIntent)
+                finish()
+            }
 
         }
 
@@ -215,4 +215,3 @@ class SignUpActivity : AppCompatActivity() {
     }
 
 }
-
