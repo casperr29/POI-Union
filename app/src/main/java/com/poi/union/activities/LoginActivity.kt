@@ -11,6 +11,7 @@ import com.poi.union.R
 import com.poi.union.databinding.ActivityLoginBinding
 import com.poi.union.models.Constantes
 import com.poi.union.models.Users
+import com.poi.union.models.PreferenceManager
 
 class LoginActivity : AppCompatActivity() {
     private val userList = mutableListOf<Users>()
@@ -19,6 +20,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var userref: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
@@ -84,6 +87,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun validation():Boolean {
 
+        val preferenceManager = PreferenceManager(applicationContext)
         val email = findViewById<EditText>(R.id.inputEmail).text.toString()
         val password = findViewById<EditText>(R.id.inputContrasena).text.toString()
 
@@ -102,7 +106,8 @@ class LoginActivity : AppCompatActivity() {
         val passTemp = userTemp?.Contrasena
 
 
-        /*al hacer isEmpty()
+        /*al hacer isEmpty() no se si no puede leer o algo falla ya que cierra la app, entonces estas
+        validaciones estan en proceso
         if (emailTemp!!.isEmpty()) {
             Toast.makeText(this, "No existe esta cuenta", Toast.LENGTH_SHORT).show()
             return false
@@ -115,6 +120,9 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
             return false
         }
+        preferenceManager.putString(Constantes.KEY_NAME, userTemp.Nombre)
+        preferenceManager.putString(Constantes.KEY_IMAGE, userTemp.Foto)
+
         return true
     }
 }

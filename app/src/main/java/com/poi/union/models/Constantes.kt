@@ -17,6 +17,7 @@ class Constantes {
         const val KEY_ROL = "rol"
         const val KEY_CARRERA = "carrera"
         const val KEY_IMAGE = "image"
+        const val KEY_PREFERENCE_NAME = "chatAppPreference"
 
 
 
