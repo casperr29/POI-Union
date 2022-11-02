@@ -3,10 +3,7 @@ package com.poi.union.activities
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.*
 import com.poi.union.MainActivity
@@ -42,7 +39,6 @@ class LoginActivity : AppCompatActivity() {
 
         btn_login.setOnClickListener(){
             if(validation()){
-
 
                 val myIntent =  Intent(this, MainActivity::class.java)
                 startActivity(myIntent)
@@ -86,33 +82,39 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun validation():Boolean{
+    fun validation():Boolean {
 
-        val email = binding.inputEmail.text
-        val password = binding.inputContrasena.text
+        val email = findViewById<EditText>(R.id.inputEmail).text.toString()
+        val password = findViewById<EditText>(R.id.inputContrasena).text.toString()
 
-
-        if(email.isNullOrEmpty()){
-            Toast.makeText( this,"Ingrese su correo", Toast.LENGTH_SHORT).show()
+        if (email.isNullOrEmpty()) {
+            Toast.makeText(this, "Ingrese su correo", Toast.LENGTH_SHORT).show()
             return false
         }
 
-        if(password.isNullOrEmpty()){
-            Toast.makeText( this,"Ingrese contraseña", Toast.LENGTH_SHORT).show()
+        if (password.isNullOrEmpty()) {
+            Toast.makeText(this, "Ingrese contraseña", Toast.LENGTH_SHORT).show()
             return false
         }
 
-        var userTemp = userList.find { it.Email.equals(email)}
-        var userTemp1 =  userList.find { it.Contrasena.equals(password)}// && it.Contrasena.equals(password)
+        val userTemp = userList.find { it.Email.equals(email) }
+        val emailTemp = userTemp?.Email
+        val passTemp = userTemp?.Contrasena
 
-        //si entra, pero no hace diferencia entre todos los datos de la base de datos
-        if(TextUtils.isEmpty(userTemp.toString()) && TextUtils.isEmpty(userTemp1.toString())){
-            Toast.makeText( this,"No existe esta cuenta", Toast.LENGTH_SHORT).show()
+
+        /*al hacer isEmpty()
+        if (emailTemp!!.isEmpty()) {
+            Toast.makeText(this, "No existe esta cuenta", Toast.LENGTH_SHORT).show()
             return false
-        }/*else if(!userTemp.Contrasena.equals(password)){
+        }
+        if(passTemp!!.isEmpty()) {
             Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
+            return false
         }*/
-
+        if (passTemp != password) {
+            Toast.makeText(this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
+            return false
+        }
         return true
     }
 }
