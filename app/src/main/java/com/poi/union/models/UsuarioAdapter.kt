@@ -4,6 +4,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +18,6 @@ class UsuarioAdapter(private val listaUsuarios: MutableList<Users>, private var 
 
     class UserViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        @RequiresApi(Build.VERSION_CODES.O)
 
         fun setUserData(user: Users, userListener: UserListener) {
 
@@ -25,9 +25,9 @@ class UsuarioAdapter(private val listaUsuarios: MutableList<Users>, private var 
 
             itemView.setOnClickListener{ userListener.onUserClicked(user)}
 
-            var params = itemView.findViewById<ConstraintLayout>(R.id.userContainerChatConv)
+            var params = itemView.findViewById<LinearLayout>(R.id.itemUserContainer)
 
-            val newParams = ConstraintLayout.LayoutParams(
+            val newParams = LinearLayout.LayoutParams(
                 params.layoutParams.width,
                 params.layoutParams.height,
             )

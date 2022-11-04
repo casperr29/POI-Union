@@ -2,27 +2,19 @@ package com.poi.union.Fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
-import com.poi.union.models.UserListener
 import com.poi.union.R
-import com.poi.union.activities.SelectUsersGroupCharActivity
 import com.poi.union.activities.LoginActivity
 import com.poi.union.activities.MessagesActivity
-import com.poi.union.adapters.MensajesAdapter
-import com.poi.union.models.UsuarioAdapter
-import com.poi.union.databinding.FragmentChatsBinding
 import com.poi.union.models.*
-import kotlinx.android.synthetic.main.fragment_chats.view.*
 
 class ChatsFragment : Fragment(R.layout.fragment_chats), UserListener {
     private var userList = mutableListOf<Users>()
+    private var self = this
 
     private lateinit var database: FirebaseDatabase
     private lateinit var userref: DatabaseReference
@@ -31,16 +23,23 @@ class ChatsFragment : Fragment(R.layout.fragment_chats), UserListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         this.init()
-        userref.addValueEventListener(valueEventListener)
+        this.getUsers()
     }
 
     private fun init(){
-        adaptador = UsuarioAdapter(userList, this)
-        this.database = FirebaseDatabase.getInstance()
-        this.userref = database.getReference(Constantes.KEY_COLLECTION_USERS)
-        recyclerView.adapter = adaptador
+
         recyclerView = requireActivity().findViewById<RecyclerView>(R.id.list_view)
+
+
+        this.database = FirebaseDatabase.getInstance()
+
+        this.userref = database.getReference(Constantes.KEY_COLLECTION_USERS)
         recyclerView.visibility = View.VISIBLE
 
     }
@@ -50,7 +49,8 @@ class ChatsFragment : Fragment(R.layout.fragment_chats), UserListener {
     }
 
     private val valueEventListener = object: ValueEventListener {
-        var preferenceManager = PreferenceManager(requireContext())
+        //var preferenceManager = PreferenceManager(requireContext())
+        var preferenceManager = PreferenceManager(LoginActivity.contextGlobal)
 
         override fun onDataChange(snapshot: DataSnapshot) {
             val currentUserEmail = preferenceManager.getString(Constantes.KEY_EMAIL)
@@ -70,11 +70,26 @@ class ChatsFragment : Fragment(R.layout.fragment_chats), UserListener {
                 user.Foto = userMap[Constantes.KEY_ROL].toString()
                 user.Rol = userMap[Constantes.KEY_ROL].toString()
 
+                userList.add(user)
             }
 
             if(userList.size > 0){
+                /*val linearLayoutManager = LinearLayoutManager(LoginActivity.contextGlobal)
+                linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+                recyclerView.layoutManager = linearLayoutManager*/
+
+                adaptador = UsuarioAdapter(userList, self)
+                recyclerView.adapter = adaptador
+
+                val linearLayoutManager = LinearLayoutManager(LoginActivity.contextGlobal)
+                linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+                recyclerView.layoutManager = linearLayoutManager
+
                 recyclerView.smoothScrollToPosition(userList.size - 1)
             }
+
+
+
 
         }
         override fun onCancelled(error: DatabaseError) {

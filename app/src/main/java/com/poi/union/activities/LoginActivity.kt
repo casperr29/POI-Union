@@ -94,6 +94,7 @@ class LoginActivity : AppCompatActivity() {
     fun validation():Boolean {
 
         val preferenceManager = PreferenceManager(applicationContext)
+        contextGlobal = applicationContext
         val email = findViewById<EditText>(R.id.inputEmail).text.toString()
         val password = findViewById<EditText>(R.id.inputContrasena).text.toString()
 
