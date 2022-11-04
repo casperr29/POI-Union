@@ -1,6 +1,8 @@
 package com.poi.union.models
 
-class Users {
+import java.io.Serializable
+
+class Users : Serializable{
     var id: String=""
     var Foto : String = ""
     var Nombre : String = ""

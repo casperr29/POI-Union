@@ -1,118 +1,91 @@
 package com.poi.union.Fragments
 
 import android.content.Intent
-import android.os.Binder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Button
 import android.widget.ImageView
-import android.widget.ListView
-import android.widget.Toast
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.*
+import com.poi.union.models.UserListener
 import com.poi.union.R
 import com.poi.union.activities.SelectUsersGroupCharActivity
-import com.poi.union.activities.SignUpActivity
+import com.poi.union.activities.LoginActivity
+import com.poi.union.activities.MessagesActivity
 import com.poi.union.adapters.MensajesAdapter
-import com.poi.union.databinding.ActivitySelectUsersGroupCharBinding
+import com.poi.union.models.UsuarioAdapter
 import com.poi.union.databinding.FragmentChatsBinding
-import com.poi.union.models.Mensajes
-import kotlinx.android.synthetic.main.fragment_chats.*
+import com.poi.union.models.*
 import kotlinx.android.synthetic.main.fragment_chats.view.*
-import java.util.Objects
 
-class ChatsFragment : Fragment() {
+class ChatsFragment : Fragment(R.layout.fragment_chats), UserListener {
+    private var userList = mutableListOf<Users>()
 
-    lateinit var binding: FragmentChatsBinding
+    private lateinit var database: FirebaseDatabase
+    private lateinit var userref: DatabaseReference
     private lateinit var recyclerView: RecyclerView
-    private lateinit var mensajeList:ArrayList<Mensajes>
-    private lateinit var mensajesAdapter: MensajesAdapter
+    private lateinit var adaptador: UsuarioAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        this.init()
+        userref.addValueEventListener(valueEventListener)
+    }
 
-
-
-        // Inflate the layout for this fragment
-        val view: View = inflater.inflate(R.layout.fragment_chats, container, false)
-
-        /////Crear grupo//////
-
-        val create = view.findViewById<ImageView>(R.id.create)
-
-        view.create.setOnClickListener{
-            val intent=Intent(getActivity(),SelectUsersGroupCharActivity::class.java)
-            getActivity()?.startActivity(intent)
-        }
-
-        /////////////////////
-
-        //val search = view.findViewById<SearchView>(R.id.busqueda)
-        //val listView=view.findViewById<ListView>(R.id.list_view)
-
-        val recyclerView = view.findViewById<RecyclerView>(R.id.list_view)
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = LinearLayoutManager(requireActivity().baseContext)
-
-        mensajeList = ArrayList()
-
-        mensajeList.add(Mensajes(R.drawable.mujer1, "Arely", "Hola ¿Cómo haz estado?", "7:00pm"))
-        mensajeList.add(Mensajes(R.drawable.mujer2, "Dhary", "¿Tienes clase?", "5:11pm"))
-        mensajeList.add(Mensajes(R.drawable.hombre1, "Rafael", "Okey", "7:25pm"))
-        mensajeList.add(Mensajes(R.drawable.mujer3, "Mariana", "Listo, ya quedó", "2:15pm"))
-        mensajeList.add(Mensajes(R.drawable.hombre1, "Alan", "Nono", "8:03pm"))
-        mensajeList.add(Mensajes(R.drawable.mujer1, "Monica", "Todo bien", "4:46pm"))
-        mensajeList.add(Mensajes(R.drawable.mujer2, "Lorena", "¿Hay tarea?", "5:15pm"))
-
-        mensajesAdapter = MensajesAdapter(mensajeList)
-        recyclerView.adapter = mensajesAdapter
-
-
-
-
-        //Con esto obtiene el arreglo
-
-        /*val names=arrayOf("Hola","Sirve?")
-
-        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
-            requireActivity().baseContext,
-            android.R.layout.simple_list_item_1,
-            names
-        )*/
-
-        //listView.adapter=adapter
-
-
-        //FUNCION PARA EL SEARCH
-       /* search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(p0: String): Boolean {
-                search.clearFocus()
-                if(names.contains(p0)){
-                    adapter.filter.filter(p0)
-                }else{
-                    Toast.makeText( requireActivity().baseContext,"Usuario no encontrado", Toast.LENGTH_SHORT).show()
-                }
-                return false
-            }
-            override fun onQueryTextChange(p0: String): Boolean {
-                adapter.filter.filter(p0)
-                return false
-            }
-        })*/
-
-
-        return view
+    private fun init(){
+        adaptador = UsuarioAdapter(userList, this)
+        this.database = FirebaseDatabase.getInstance()
+        this.userref = database.getReference(Constantes.KEY_COLLECTION_USERS)
+        recyclerView.adapter = adaptador
+        recyclerView = requireActivity().findViewById<RecyclerView>(R.id.list_view)
+        recyclerView.visibility = View.VISIBLE
 
     }
 
+    private fun getUsers(){
+        userref.addValueEventListener(valueEventListener)
+    }
 
+    private val valueEventListener = object: ValueEventListener {
+        var preferenceManager = PreferenceManager(requireContext())
 
+        override fun onDataChange(snapshot: DataSnapshot) {
+            val currentUserEmail = preferenceManager.getString(Constantes.KEY_EMAIL)
 
+            for (snap in snapshot.children) {
+                val userMap: HashMap<String, Any> = snap.value as HashMap<String, Any>
+
+                if(currentUserEmail.equals(userMap[Constantes.KEY_EMAIL].toString())){
+                    continue
+                }
+                val user = Users()
+
+                user.Nombre = userMap[Constantes.KEY_NAME].toString()
+                user.Email = userMap[Constantes.KEY_EMAIL].toString()
+                user.Contrasena = userMap[Constantes.KEY_PASSWORD].toString()
+                user.Carrera = userMap[Constantes.KEY_CARRERA].toString()
+                user.Foto = userMap[Constantes.KEY_ROL].toString()
+                user.Rol = userMap[Constantes.KEY_ROL].toString()
+
+            }
+
+            if(userList.size > 0){
+                recyclerView.smoothScrollToPosition(userList.size - 1)
+            }
+
+        }
+        override fun onCancelled(error: DatabaseError) {
+            /*TODO("Not yet implemented")*/
+        }
+
+    }
+
+    override fun onUserClicked(user: Users) {
+        val intent = Intent(LoginActivity.contextGlobal, MessagesActivity::class.java)
+        intent.putExtra(Constantes.KEY_USER, user)
+        startActivity(intent)
+    }
 }

@@ -1,20 +1,18 @@
 package com.poi.union.models
 
-import java.sql.Timestamp
+import com.google.firebase.database.Exclude
+import java.util.*
 
-class mensaje {
-    var messageId:String?=null
-    var message:String?=null
-    var senderId:String?=null
-    var timeStamp:Long=0
-    constructor(){}
-    constructor(
-        message:String?,
-        senderId:String?,
-        timeStamp:Long
-    ){
-        this.message=message
-        this.senderId=senderId
-        this.timeStamp=timeStamp
-    }
+class mensaje(
+    var messageId: String = "",
+    var senderId: String = "",
+    var senderName: String = "",
+    var receiverId : String = "",
+    var message: String = "",
+    var timestamp: String = "",
+    var dateObject: Date? = null,
+    var imagen:String? = null
+) {
+    @Exclude
+    var esMio: Boolean = false
 }

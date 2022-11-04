@@ -1,5 +1,6 @@
 package com.poi.union.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -14,6 +15,11 @@ import com.poi.union.models.Users
 import com.poi.union.models.PreferenceManager
 
 class LoginActivity : AppCompatActivity() {
+
+    companion object {
+        lateinit var contextGlobal: Context
+    }
+
     private val userList = mutableListOf<Users>()
     private lateinit var binding: ActivityLoginBinding
     private lateinit var database: FirebaseDatabase
@@ -122,6 +128,7 @@ class LoginActivity : AppCompatActivity() {
         }
         preferenceManager.putString(Constantes.KEY_NAME, userTemp.Nombre)
         preferenceManager.putString(Constantes.KEY_IMAGE, userTemp.Foto)
+        preferenceManager.putString(Constantes.KEY_EMAIL, userTemp.Email)
 
         return true
     }

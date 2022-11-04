@@ -19,7 +19,6 @@ class MensajesAdapter(private val messageList:ArrayList<Mensajes>)
 
     class mensajesViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
 
-        val imageView:ImageView=itemView.findViewById(R.id.fotoPerfil)
         val nombreView:TextView=itemView.findViewById(R.id.userName)
         val mensajeView:TextView=itemView.findViewById(R.id.ultimoMensaje)
         val horaView:TextView=itemView.findViewById(R.id.hora)
@@ -33,7 +32,7 @@ class MensajesAdapter(private val messageList:ArrayList<Mensajes>)
 
     override fun onBindViewHolder(holder: mensajesViewHolder, position: Int) {
         val mensaje=messageList[position]
-        holder.imageView.setImageResource(mensaje.image)
+
         holder.nombreView.text=mensaje.name
         holder.mensajeView.text=mensaje.lastMsg
         holder.horaView.text=mensaje.lastMsgTime
@@ -43,7 +42,7 @@ class MensajesAdapter(private val messageList:ArrayList<Mensajes>)
             val nombre=mensaje.name
             val intent=Intent(holder.itemView.context,MessagesActivity::class.java)
             intent.putExtra("name",mensaje.name)
-            intent.putExtra("image",mensaje.image)
+
             holder.itemView.context.startActivity(intent)
         }
 
@@ -58,3 +57,6 @@ class MensajesAdapter(private val messageList:ArrayList<Mensajes>)
 
 
 }
+
+
+

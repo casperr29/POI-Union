@@ -18,6 +18,20 @@ class Constantes {
         const val KEY_CARRERA = "carrera"
         const val KEY_IMAGE = "image"
         const val KEY_PREFERENCE_NAME = "chatAppPreference"
+        const val KEY_USER = "user"
+
+        const val KEY_COLLECTION_CHAT = "chat"
+        const val KEY_SENDER_ID = "senderId"
+        const val KEY_SENDER_NAME = "senderName"
+        const val KEY_RECEIVER_ID = "receiverId"
+        const val KEY_MESSAGE = "message"
+
+        const val KEY_TIMESTAMP = "timestamp"
+        const val KEY_TMSP_DAY = "dayOfMonth"
+        const val KEY_TMSP_MONTH = "monthValue"
+        const val KEY_TMSP_YEAR = "year"
+        const val KEY_TMSP_HOUR = "hour"
+        const val KEY_TMSP_MINUTE = "minute"
 
 
 
