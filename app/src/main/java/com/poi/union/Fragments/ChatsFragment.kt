@@ -3,6 +3,7 @@ package com.poi.union.Fragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,6 @@ import com.poi.union.models.*
 
 class ChatsFragment : Fragment(R.layout.fragment_chats), UserListener {
     private var userList = mutableListOf<Users>()
-    private var self = this
 
     private lateinit var database: FirebaseDatabase
     private lateinit var userref: DatabaseReference
@@ -78,7 +78,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats), UserListener {
                 linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
                 recyclerView.layoutManager = linearLayoutManager*/
 
-                adaptador = UsuarioAdapter(userList, self)
+                adaptador = UsuarioAdapter(userList, this@ChatsFragment)
                 recyclerView.adapter = adaptador
 
                 val linearLayoutManager = LinearLayoutManager(LoginActivity.contextGlobal)
@@ -93,7 +93,8 @@ class ChatsFragment : Fragment(R.layout.fragment_chats), UserListener {
 
         }
         override fun onCancelled(error: DatabaseError) {
-            /*TODO("Not yet implemented")*/
+            Toast.makeText(requireContext(), "Error al leer los mensajes", Toast.LENGTH_SHORT).show()
+
         }
 
     }

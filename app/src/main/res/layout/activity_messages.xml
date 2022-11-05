@@ -48,7 +48,7 @@
                 android:layout_marginLeft="15dp">
 
                 <TextView
-                    android:id="@+id/username"
+                    android:id="@+id/tvUsernamePrivateChat"
                     android:textColor="@color/white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -65,13 +65,13 @@
 
     <LinearLayout
         android:id="@+id/linear01"
-        android:orientation="vertical"
-        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/usersRecyclerView"
+            android:id="@+id/rvPrivateChat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible" />
@@ -96,7 +96,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
             android:layout_marginBottom="8dp"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content">
 
             <LinearLayout
@@ -114,17 +114,18 @@
                     android:layout_height="wrap_content">
 
                     <EditText
-                        android:id="@+id/messageBox"
+                        android:id="@+id/etMessagePrivateChat"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@android:color/transparent"
                         android:gravity="start"
                         android:hint="Escribe un mensaje"
+                        android:padding="5dp"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
                         android:textSize="15sp"
                         android:textStyle="bold"
-                        android:background="@android:color/transparent"
-                        android:padding="5dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        tools:ignore="TouchTargetSizeCheck" />
 
                 </LinearLayout>
 
@@ -155,7 +156,7 @@
         </androidx.cardview.widget.CardView>
 
         <ImageView
-            android:id="@+id/enviar"
+            android:id="@+id/btnEnviarPrivateChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

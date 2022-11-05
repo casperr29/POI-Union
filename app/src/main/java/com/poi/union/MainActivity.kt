@@ -1,5 +1,6 @@
 package com.poi.union
 
+import android.content.Intent
 import android.content.res.Resources
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import com.poi.union.Fragments.ChatsFragment
 import com.poi.union.Fragments.GruposFragment
 import com.poi.union.Fragments.PageAdapter
 import com.poi.union.Fragments.TareasFragment
+import com.poi.union.activities.LoginActivity
 import com.poi.union.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import com.poi.union.models.Constantes
@@ -52,7 +54,14 @@ class MainActivity : AppCompatActivity() {
                 R.id.chats->replaceFragment(ChatsFragment())
                 R.id.grupos->replaceFragment(GruposFragment())
                 R.id.tareas->replaceFragment(TareasFragment())
-                else->{}
+                else->{
+
+                    var intent= Intent(applicationContext, LoginActivity::class.java)
+                    preferenceManager.clear()
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK )
+                    startActivity(intent)
+                }
             }
             true
         }
