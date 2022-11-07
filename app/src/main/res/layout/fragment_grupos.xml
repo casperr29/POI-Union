@@ -9,8 +9,6 @@
     tools:context=".Fragments.GruposFragment">
 
 
-
-
     <androidx.appcompat.widget.SearchView
         android:id="@+id/busqueda"
         android:layout_width="match_parent"
@@ -19,9 +17,16 @@
         android:layout_marginTop="100dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/searchview_background"
-        app:queryHint="Ingrese nombre de grupo"
-        app:iconifiedByDefault="false">
+        app:iconifiedByDefault="false"
+        app:queryHint="Ingrese nombre de grupo">
+
     </androidx.appcompat.widget.SearchView>
+
+    <Button
+        android:id="@+id/NewChat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Grupo Nuevo" />
 
     <ListView
         android:layout_marginStart="@dimen/_20sdp"

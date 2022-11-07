@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         val preferenceManager = PreferenceManager(applicationContext)
 
-        val nombreperfil = findViewById<TextView>(R.id.username)
+        val nombreperfil = findViewById<TextView>(R.id.username)  //creo que aqui manda al username de la pantalla el nombre del usuario
         nombreperfil.text = preferenceManager.getString(Constantes.KEY_NAME)
 
         /* La imagen no la obtiene o no funciona encode image, asi que por el momento esta en proceso

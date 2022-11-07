@@ -13,7 +13,7 @@ import com.poi.union.R
 
 class GruposFragment : Fragment() {
 
-
+// Ocupo una funcion que al dar clic a un grupo te mande a ese grupo (GroupChatActivity)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

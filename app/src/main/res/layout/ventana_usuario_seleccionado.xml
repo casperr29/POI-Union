@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/selectedUserLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="6dp"
+    android:paddingLeft="4dp">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/layout_bg_added_user"
+        android:paddingLeft="5dp"
+        android:paddingRight="10dp">
+
+
+        <TextView
+            android:id="@+id/tvContactoSeleccionado"
+            android:layout_width="210dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="55dp"
+            android:text="El cocos"
+            android:textColor="@color/them_light_black"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="5dp">
+
+            <FrameLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/imgContacto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/imagen_fondo"
+                    android:scaleType="centerCrop"
+                    app:riv_oval="true" />
+            </FrameLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

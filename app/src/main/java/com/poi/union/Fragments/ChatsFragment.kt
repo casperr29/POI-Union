@@ -3,6 +3,7 @@ package com.poi.union.Fragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,8 +22,23 @@ class ChatsFragment : Fragment(R.layout.fragment_chats), UserListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adaptador: UsuarioAdapter
 
+    //variable para el boton de crear grupo
+    //val creategroupchat = findViewById<ImageView>(R.id.create)
+
+    //val btn_login = findViewById<Button>(R.id.botonLogin)
+    //val btn_reg = findViewById<TextView>(R.id.textoCrearCuenta)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val creategroupchat = view?.findViewById<ImageView>(R.id.create)
+        
+    /*
+    creategroupchat?.setOnClickListener {
+            val intent = Intent(LoginActivity.contextGlobal, CreateGroupChat::class.java)
+            startActivity(intent)
+        }
+    * */
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,6 +46,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats), UserListener {
 
         this.init()
         this.getUsers()
+
     }
 
     private fun init(){

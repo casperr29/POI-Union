@@ -77,6 +77,11 @@
             app:iconifiedByDefault="false">
         </androidx.appcompat.widget.SearchView>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvContactosSeleccionados"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
         <ListView
             android:id="@+id/listViewCheckbox"
             android:layout_width="wrap_content"

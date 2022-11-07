@@ -9,7 +9,11 @@ import java.io.ByteArrayOutputStream
 class Constantes {
     companion object {
         const val KEY_COLLECTION_USERS:String = "users"
-
+        const val KEY_COLLECTION_GROUPS:String = "groups"
+        const val KEY_COLLECTION_GROUP_MEMBERS:String = "members"
+        const val KEY_COLLECTION_GROUP_TASKS:String = "groupTasks"
+        const val KEY_COLLECTION_GROUP_NFTS:String = "groupNFTs"
+        const val KEY_COLLECTION_BOUGHT_NFTS:String = "boughtNFTs"
 
         const val KEY_NAME  = "nombre"
         const val KEY_EMAIL = "email"
@@ -33,8 +37,17 @@ class Constantes {
         const val KEY_TMSP_HOUR = "hour"
         const val KEY_TMSP_MINUTE = "minute"
 
+        const val KEY_GROUP = "group"
+        const val KEY_GROUP_ID = "groupId"
+        const val KEY_GROUP_NAME  = "groupName"
+        const val KEY_GROUP_IMAGE = "groupImage"
+        const val KEY_GROUP_ADMIN_ID = "groupAdminId"
+        const val KEY_GROUP_ADMIN_NAME = "groupAdminId"
+        const val KEY_GROUP_TIMESTAMP = "timestamp"
 
-
+        const val KEY_GROUP_MEMBER_ID = "memberId"
+        const val KEY_GROUP_MEMBER_NAME  = "memberName"
+        const val KEY_GROUP_MEMBER_ROLE = "memberRole"
 
         @RequiresApi(Build.VERSION_CODES.O)
         fun decodeImage(encodedImage:String): Bitmap {
