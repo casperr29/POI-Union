@@ -60,7 +60,7 @@ class GroupMessagesActivity:AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setListeners(){
         findViewById<ImageView>(R.id.imageViewBack).setOnClickListener { View-> this.onBackPressed()}
-
+        //findViewById<ImageView>(R.id.imageViewBack).setOnClickListener{ v: View -> this.onBackPressed() }
         findViewById<ImageView>(R.id.btnEnviarPrivateChat).setOnClickListener {
             //val imagenUsuario = preferenceManager.getString(Constantes.KEY_IMAGE).toString()//Asignamos la imagen de perfil del usuario logeado a una variable
             val txtInput = findViewById<EditText>(R.id.etMessagePrivateChat)//Asignamos el texto a enviar a una variable

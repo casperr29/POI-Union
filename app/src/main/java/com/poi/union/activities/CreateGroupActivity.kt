@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -53,9 +54,10 @@ class CreateGroupActivity:AppCompatActivity() {
         val buttonSiguiente=findViewById<Button>(R.id.Crear_btn)
 
         //Volver a la pantalla de lista de grupos
-        findViewById<Button>(R.id.Volver_btn).setOnClickListener {
+        /*findViewById<Button>(R.id.Volver_btn).setOnClickListener {
             changeFragment(GruposFragment(),"grupos_fragment")
-        }
+        }*/
+        findViewById<Button>(R.id.Volver_btn).setOnClickListener{ v: View -> this.onBackPressed() }
 
         //Obtenemos la vista de la foto de grupo
         val imagenGrupo=findViewById<RoundedImageView>(R.id.imgCreateGroup)
