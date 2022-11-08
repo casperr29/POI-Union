@@ -22,6 +22,20 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".activities.AddtoGroupChatActivity"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activities.CreateGroupActivity"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activities.MessagesActivity"
             android:exported="false" >
             <meta-data

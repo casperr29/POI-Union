@@ -12,6 +12,7 @@ import com.google.firebase.database.*
 import com.poi.union.R
 import com.poi.union.activities.LoginActivity
 import com.poi.union.activities.MessagesActivity
+import com.poi.union.adapters.UsuarioAdapter
 import com.poi.union.models.*
 
 class ChatsFragment : Fragment(R.layout.fragment_chats), UserListener {

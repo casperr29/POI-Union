@@ -28,15 +28,15 @@
         android:layout_height="wrap_content"
         android:text="Grupo Nuevo" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_20sdp"
-        android:id="@+id/listView"
+        android:id="@+id/rvFragmentGrupos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_grupo">
 
-    </ListView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 

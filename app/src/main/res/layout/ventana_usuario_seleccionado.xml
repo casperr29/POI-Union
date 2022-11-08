@@ -10,8 +10,8 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
         android:background="@drawable/layout_bg_added_user"
         android:paddingLeft="5dp"
         android:paddingRight="10dp">
@@ -19,32 +19,38 @@
 
         <TextView
             android:id="@+id/tvContactoSeleccionado"
-            android:layout_width="210dp"
-            android:layout_height="47dp"
-            android:layout_marginStart="55dp"
+            android:layout_width="63dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="10dp"
+            android:paddingRight="15dp"
             android:text="El cocos"
             android:textColor="@color/them_light_black"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
             android:orientation="vertical"
-            tools:layout_editor_absoluteX="5dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imgContacto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/imagen_fondo"
+                android:scaleType="centerCrop"
+                app:riv_oval="true" />
 
             <FrameLayout
-                android:layout_width="50dp"
-                android:layout_height="50dp">
+                android:layout_width="30dp"
+                android:layout_height="30dp">
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/imgContacto"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/imagen_fondo"
-                    android:scaleType="centerCrop"
-                    app:riv_oval="true" />
             </FrameLayout>
         </LinearLayout>
 

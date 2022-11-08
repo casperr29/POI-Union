@@ -63,7 +63,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/set_nombreGrupo">
 
                 <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/imgContacto"
+                    android:id="@+id/imgCreateGroup"
                     android:layout_width="@dimen/_80sdp"
                     android:layout_height="@dimen/_80sdp"
                     android:background="@drawable/imagen_fondo"

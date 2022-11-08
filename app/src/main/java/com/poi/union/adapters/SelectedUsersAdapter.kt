@@ -16,7 +16,8 @@ import com.poi.union.models.Constantes
 import com.poi.union.models.UserListener
 import com.poi.union.models.Users
 
-class SelectedUsersAdapter (private val ListaUsuariosSeleccionados: MutableList<Users>, private var userListener: UserListener):RecyclerView.Adapter<SelectedUsersAdapter.SelectedUsersViewHolder>() {
+class SelectedUsersAdapter (private val ListaUsuariosSeleccionados: MutableList<Users>):
+    RecyclerView.Adapter<SelectedUsersAdapter.SelectedUsersViewHolder>() {
 
     class SelectedUsersViewHolder(itemView: android.view.View): RecyclerView.ViewHolder(itemView){
         @RequiresApi(Build.VERSION_CODES.O)
@@ -32,7 +33,7 @@ class SelectedUsersAdapter (private val ListaUsuariosSeleccionados: MutableList<
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
-        fun setUserData(users: Users, userListener: UserListener){
+        fun setUserData(users: Users){
             itemView.findViewById<TextView>(R.id.tvContactoSeleccionado).text = users.Nombre
 
             if (users.Foto==null||users.Foto==""){
@@ -42,7 +43,7 @@ class SelectedUsersAdapter (private val ListaUsuariosSeleccionados: MutableList<
                 itemView.findViewById<RoundedImageView>(R.id.imgContacto).setImageBitmap(imagenUsuario)
             }
 
-            itemView.setOnClickListener{ View-> userListener.onUserClicked(users)}
+            //itemView.setOnClickListener{ View-> userListener.onUserClicked(users)}
 
             var params = itemView.findViewById<RelativeLayout>(R.id.selectedUserLayout)
 
@@ -65,7 +66,7 @@ class SelectedUsersAdapter (private val ListaUsuariosSeleccionados: MutableList<
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: SelectedUsersViewHolder, position: Int) {
-        holder.setUserData(ListaUsuariosSeleccionados[position], userListener)
+        holder.setUserData(ListaUsuariosSeleccionados[position])
     }
 
     override fun getItemCount(): Int  = ListaUsuariosSeleccionados.size

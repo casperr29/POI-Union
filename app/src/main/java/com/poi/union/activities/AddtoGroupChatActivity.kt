@@ -1,42 +1,35 @@
 package com.poi.union.activities
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.View.VISIBLE
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintSet.VISIBLE
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
-import com.google.firebase.database.core.view.View
 import com.poi.union.MainActivity
 import com.poi.union.R
-import com.poi.union.adapters.GroupUsersAdapter
 import com.poi.union.adapters.SelectedUsersAdapter
-import com.poi.union.activities.LoginActivity
+import com.poi.union.adapters.UsuariosGrupoAdapter
 import com.poi.union.models.*
 import java.time.LocalDateTime
 
-class AddtoGroupChatActivity :AppCompatActivity(),UserListener {
+class AddtoGroupChatActivity :AppCompatActivity() {
 
-    private var listaUsuarios = mutableListOf<Users>()
+    private var listaUsuariosGrupo = mutableListOf<Users>()
 
     private var usersSelected = mutableListOf<Users>()
-    private var adaptadorSelect= SelectedUsersAdapter(usersSelected,this)
+    private var adaptadorSelect= SelectedUsersAdapter(usersSelected)
     //private lateinit var database: FirebaseDatabase
     private val database = FirebaseDatabase.getInstance()
     private val groupRef = database.getReference(Constantes.KEY_COLLECTION_GROUPS)
     private lateinit var usersref: DatabaseReference
     private lateinit var recyclerView: RecyclerView
     private lateinit var listView:ListView
-    private lateinit var adaptador: UsuarioAdapter
+    private lateinit var adaptador: UsuariosGrupoAdapter
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?){
@@ -45,7 +38,7 @@ class AddtoGroupChatActivity :AppCompatActivity(),UserListener {
         usersSelected=ArrayList()
 
         val rvSelectedUsers=findViewById<RecyclerView>(R.id.rvContactosSeleccionados)
-        val lvCheckBox=findViewById<ListView>(R.id.listViewCheckbox)
+        //val lvCheckBox=findViewById<ListView>(R.id.listViewCheckbox)
         rvSelectedUsers.adapter=adaptadorSelect
         //rvSelectedUsers.visibility = View.VISIBLE
         rvSelectedUsers.smoothScrollToPosition(usersSelected.size-1)
@@ -81,27 +74,26 @@ class AddtoGroupChatActivity :AppCompatActivity(),UserListener {
                 user.Foto = userMap[Constantes.KEY_ROL].toString()
                 user.Rol = userMap[Constantes.KEY_ROL].toString()
 
-                listaUsuarios.add(user)
+                listaUsuariosGrupo.add(user)
             }
 
-            if(listaUsuarios.size > 0){
+            if(listaUsuariosGrupo.size > 0){
                 /*val linearLayoutManager = LinearLayoutManager(LoginActivity.contextGlobal)
                 linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
                 recyclerView.layoutManager = linearLayoutManager*/
 
-                adaptador = UsuarioAdapter(listaUsuarios, this)
+                adaptador = UsuariosGrupoAdapter(listaUsuariosGrupo)
                 //adaptador = UsuarioAdapter(userList, this@AddtoGroupChatActivity)
                 //se supone que este es el listViewCheckbox del activity_select_users_grpup_char
-                val viewContact = findViewById<ListView>(R.id.listViewCheckbox) //se supone que este es el listViewCheckbox del activity_select_users_grpup_char
+                val viewContact = findViewById<RecyclerView>(R.id.listViewCheckbox) //se supone que este es el listViewCheckbox del activity_select_users_grpup_char
                 viewContact.adapter = adaptador
                 //viewContact.visibility = View.VISIBLE
-                viewContact.adapter = adaptador
 
                 //val linearLayoutManager = LinearLayoutManager(LoginActivity.contextGlobal)
                 //linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
                 //recyclerView.layoutManager = linearLayoutManager
 
-                viewContact.smoothScrollToPosition(listaUsuarios.size - 1)
+                viewContact.smoothScrollToPosition(listaUsuariosGrupo.size - 1)
             }
 
 
@@ -109,7 +101,7 @@ class AddtoGroupChatActivity :AppCompatActivity(),UserListener {
 
         }
         override fun onCancelled(error: DatabaseError) {
-            Toast.makeText(requireContext(), "Error al traer Usuarios", Toast.LENGTH_SHORT).show()
+            Toast.makeText(LoginActivity.contextGlobal, "Error al traer Usuarios", Toast.LENGTH_SHORT).show()
 
         }
     }
@@ -230,16 +222,6 @@ class AddtoGroupChatActivity :AppCompatActivity(),UserListener {
 
     private fun showToast(message: String?) {
         Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onUserClicked(user: Users){
-        if(usersSelected.contains(user)){
-            usersSelected.remove(user)
-        }else{
-            usersSelected.add(user)
-        }
-        getSelectedUsers()
-        adaptadorSelect.notifyDataSetChanged()
     }
 
 }

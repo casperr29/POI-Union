@@ -60,10 +60,10 @@
 
     <LinearLayout
         android:id="@+id/linear01"
-        android:orientation="vertical"
-        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/busqueda"
@@ -73,20 +73,21 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/searchview_background"
-            app:queryHint="Ingrese nombre de usuarios"
-            app:iconifiedByDefault="false">
-        </androidx.appcompat.widget.SearchView>
+            app:iconifiedByDefault="false"
+            app:queryHint="Ingrese nombre de usuarios"></androidx.appcompat.widget.SearchView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvContactosSeleccionados"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="200dp"
+            tools:listitem="@layout/ventana_usuario_seleccionado" />
 
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listViewCheckbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:choiceMode="multipleChoice"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:choiceMode="multipleChoice"
+            tools:listitem="@layout/ventana_contactos" />
 
 
     </LinearLayout>

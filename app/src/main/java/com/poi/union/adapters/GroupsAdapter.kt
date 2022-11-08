@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -37,20 +38,20 @@ class GroupsAdapter (private val listaGrupos: MutableList<Grupo>, private var gr
         @RequiresApi(Build.VERSION_CODES.O)
         fun setGroupData(grupo: Grupo, groupListener: GroupListener) {
 
-            itemView.findViewById<TextView>(R.id.tvNombre_grupito).text = grupo.grupoName
+            itemView.findViewById<TextView>(R.id.nombreGrupo).text = grupo.grupoName
 
-            if(grupo.grupoImagen == null || grupo.grupoImagen == ""){
+           /* if(grupo.grupoImagen == null || grupo.grupoImagen == ""){
                 itemView.findViewById<ImageView>(R.id.imgGrupoLista).setImageResource(R.drawable.space)
             }else{
                 val imagenGrupo = grupo.grupoImagen?.let { decodeImage(it) }
                 itemView.findViewById<ImageView>(R.id.imgGrupoLista).setImageBitmap(imagenGrupo)
-            }
+            }*/
 
             itemView.setOnClickListener{ v: View -> groupListener.onGroupClicked(grupo)}
 
-            var params = itemView.findViewById<RelativeLayout>(R.id.groupListContainer)
+            var params = itemView.findViewById<LinearLayout>(R.id.lilaGroupItemContainer)
 
-            val newParams = RelativeLayout.LayoutParams(
+            val newParams = LinearLayout.LayoutParams(
                 params.layoutParams.width,
                 params.layoutParams.height,
             )
@@ -65,7 +66,7 @@ class GroupsAdapter (private val listaGrupos: MutableList<Grupo>, private var gr
         viewType: Int
     ): GroupsAdapter.GroupsViewHolder {
         return GroupsViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.ventana_grupitos, parent, false))
+            LayoutInflater.from(parent.context).inflate(R.layout.item_grupo, parent, false))
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

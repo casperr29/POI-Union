@@ -1,4 +1,4 @@
-package com.poi.union.models
+package com.poi.union.adapters
 
 import android.os.Build
 import android.view.LayoutInflater
@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.ValueEventListener
 import com.poi.union.R
+import com.poi.union.models.UserListener
+import com.poi.union.models.Users
 
 
 class UsuarioAdapter(private val listaUsuarios: MutableList<Users>, private var userListener: UserListener):
@@ -36,6 +36,7 @@ class UsuarioAdapter(private val listaUsuarios: MutableList<Users>, private var 
         }
 
     }
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {

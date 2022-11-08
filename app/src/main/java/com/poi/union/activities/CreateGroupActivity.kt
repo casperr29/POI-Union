@@ -44,7 +44,7 @@ class CreateGroupActivity:AppCompatActivity() {
         }
 
         //Obtenemos la vista de la foto de grupo
-        val imagenGrupo=findViewById<RoundedImageView>(R.id.imgContacto)
+        val imagenGrupo=findViewById<RoundedImageView>(R.id.imgCreateGroup)
 
         imagenGrupo.setOnClickListener {
             //Creamos un intent para acceder a la galeria del dispositivo
@@ -94,7 +94,7 @@ class CreateGroupActivity:AppCompatActivity() {
     private val pickImage: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult ->
-        val profilePicture = findViewById<RoundedImageView>(R.id.fotoPerfil)
+        val groupPicture = findViewById<RoundedImageView>(R.id.imgCreateGroup)
         if (result.resultCode == RESULT_OK) {
             if (result.data != null) {
                 val imageUri = result.data!!.data
@@ -102,7 +102,7 @@ class CreateGroupActivity:AppCompatActivity() {
                     val inputStream =
                         contentResolver.openInputStream(imageUri!!)
                     val bitmap = BitmapFactory.decodeStream(inputStream)
-                    profilePicture.setImageBitmap(bitmap)
+                    groupPicture.setImageBitmap(bitmap)
                     encodedImage = encodeImage(bitmap)
                 } catch (e: FileNotFoundException) {
                     e.printStackTrace()
