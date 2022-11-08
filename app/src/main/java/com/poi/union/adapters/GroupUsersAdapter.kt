@@ -40,10 +40,10 @@ class GroupUsersAdapter(private val listaUsuariosGrupo: MutableList<Users>, priv
             itemView.findViewById<TextView>(R.id.tvNombreContacto).text = user.Nombre
 
             if(user.Foto == null || user.Foto == ""){
-                itemView.findViewById<RoundedImageView>(R.id.imgContacto).setImageResource(R.drawable.space)
+                itemView.findViewById<RoundedImageView>(R.id.rivSelectedUserImage).setImageResource(R.drawable.space)
             }else{
                 val imagenUsuario = user.Foto?.let { decodeImage(it) }
-                itemView.findViewById<RoundedImageView>(R.id.imgContacto).setImageBitmap(imagenUsuario)
+                itemView.findViewById<RoundedImageView>(R.id.rivSelectedUserImage).setImageBitmap(imagenUsuario)
             }
 
             itemView.setOnClickListener{ v: View -> userListener.onUserClicked(user)

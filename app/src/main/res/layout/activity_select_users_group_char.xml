@@ -20,7 +20,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageViewBack"
+                android:id="@+id/ivBackAddtoGroup"
                 android:layout_width="30dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
@@ -47,7 +47,7 @@
             </LinearLayout>
             <ImageView
                 android:layout_marginLeft="110dp"
-                android:id="@+id/done"
+                android:id="@+id/btnCreateGroup"
                 android:layout_width="40dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
@@ -83,7 +83,7 @@
             tools:listitem="@layout/ventana_usuario_seleccionado" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listViewCheckbox"
+            android:id="@+id/rvAllUsersAddtoGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:choiceMode="multipleChoice"

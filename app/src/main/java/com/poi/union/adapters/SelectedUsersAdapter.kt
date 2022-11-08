@@ -6,6 +6,7 @@ import android.os.Build
 import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -13,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.makeramen.roundedimageview.RoundedImageView
 import com.poi.union.R
 import com.poi.union.models.Constantes
-import com.poi.union.models.UserListener
+import com.poi.union.models.SelectedUsersListener
 import com.poi.union.models.Users
 
 class SelectedUsersAdapter (private val ListaUsuariosSeleccionados: MutableList<Users>):
@@ -33,15 +34,18 @@ class SelectedUsersAdapter (private val ListaUsuariosSeleccionados: MutableList<
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
-        fun setUserData(users: Users){
-            itemView.findViewById<TextView>(R.id.tvContactoSeleccionado).text = users.Nombre
+        fun setUserData(user: Users){
 
-            if (users.Foto==null||users.Foto==""){
-                itemView.findViewById<RoundedImageView>(R.id.imgContacto).setImageResource(R.drawable.space)
+            itemView.findViewById<TextView>(R.id.tvContactoSeleccionado).text = user.Nombre
+
+            itemView.findViewById<RoundedImageView>(R.id.rivSelectedUserImage).setImageResource(R.drawable.space)
+
+            /*if (user.Foto.isEmpty()||user.Foto==""){
+                itemView.findViewById<RoundedImageView>(R.id.rivSelectedUserImage).setImageResource(R.drawable.space)
             }else{
-                val imagenUsuario=users.Foto?.let { Constantes.decodeImage(it) }
-                itemView.findViewById<RoundedImageView>(R.id.imgContacto).setImageBitmap(imagenUsuario)
-            }
+                val imagenUsuario=user.Foto?.let { Constantes.decodeImage(it) }
+                itemView.findViewById<RoundedImageView>(R.id.rivSelectedUserImage).setImageBitmap(imagenUsuario)
+            }*/
 
             //itemView.setOnClickListener{ View-> userListener.onUserClicked(users)}
 

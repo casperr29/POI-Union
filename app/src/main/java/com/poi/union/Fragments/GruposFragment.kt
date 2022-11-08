@@ -117,7 +117,23 @@ class GruposFragment : Fragment(), GroupListener {
                 grupo.grupoName = groupMap[Constantes.KEY_GROUP_NAME].toString()
                 grupo.grupoImagen = groupMap[Constantes.KEY_GROUP_IMAGE].toString()
                 grupo.adminId = groupMap[Constantes.KEY_GROUP_ADMIN_ID].toString()
-                grupo.members = groupMap[Constantes.KEY_COLLECTION_GROUP_MEMBERS] as List<MiembroGrupo>?
+
+                //Solo añadiremos los miembros una vez que se hayan cargado
+                if(groupMap[Constantes.KEY_COLLECTION_GROUP_MEMBERS] != null){
+                    val membersMap: HashMap<String, Any> = groupMap[Constantes.KEY_COLLECTION_GROUP_MEMBERS] as HashMap<String, Any>
+
+                    for(member in membersMap.values){
+                        var miembroTemp = MiembroGrupo()
+                        var miembroMap = member as HashMap<String, Any>
+
+                        miembroTemp.nombre = miembroMap[Constantes.KEY_GROUP_MEMBER_NAME].toString()
+                        miembroTemp.rol = miembroMap[Constantes.KEY_GROUP_MEMBER_ROLE].toString()
+
+                        grupo.members?.add(miembroTemp)
+
+                    }
+                }
+
                 grupo.timestamp = groupMap[Constantes.KEY_GROUP_TIMESTAMP].toString()
 
                 groupList.add(grupo)

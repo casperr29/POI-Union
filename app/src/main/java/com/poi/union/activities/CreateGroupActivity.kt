@@ -16,20 +16,34 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.makeramen.roundedimageview.RoundedImageView
 import com.poi.union.Fragments.GruposFragment
 import com.poi.union.R
+import com.poi.union.models.Constantes
+import com.poi.union.models.PreferenceManager
 import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
+import java.time.LocalDateTime
 
 class CreateGroupActivity:AppCompatActivity() {
     private var encodedImage=""//Almacenar la foto de perfil
+    private lateinit var database: FirebaseDatabase
+    private lateinit var groupRef: DatabaseReference
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.createchatgroup)
+        init()
         setListeners()
+    }
+
+    private fun init(){
+        this.database = FirebaseDatabase.getInstance()
+        this.groupRef = database.getReference(Constantes.KEY_COLLECTION_GROUPS)
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -58,7 +72,7 @@ class CreateGroupActivity:AppCompatActivity() {
             //Validacion del formulario de registro
             if (isValidGroupDetails()){
                 //Proceso para insertar el grupo
-                signUp()
+                createGroup()
             }
         }
     }
@@ -69,14 +83,30 @@ class CreateGroupActivity:AppCompatActivity() {
     }
 
     //Envio de los datos del grupo a crear
-    private fun signUp(){
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createGroup(){
         val nombreGpoInput=findViewById<EditText>(R.id.set_nombreGrupo)
 
         showToast("Cargando grupo")
 
+        var preferenceManager = PreferenceManager(LoginActivity.contextGlobal)
+        var grupo = HashMap<String, Any>()//Creamos un objeto de tipo string
+        val grupoFirebase = groupRef.push()//Hacemos referencia a la base de datos
+
+        //Asignamos los valores a guardar para el mensaje
+        grupo.put(Constantes.KEY_GROUP_NAME, intent.getStringExtra("nombreGrupo").toString())
+        grupo.put(Constantes.KEY_GROUP_IMAGE, intent.getStringExtra("fotoGrupo").toString())
+        grupo.put(Constantes.KEY_GROUP_ADMIN_ID, preferenceManager.getString(Constantes.KEY_EMAIL).toString())
+        grupo.put(Constantes.KEY_GROUP_ADMIN_NAME, preferenceManager.getString(Constantes.KEY_NAME).toString())
+        grupo.put(Constantes.KEY_GROUP_TIMESTAMP, LocalDateTime.now())
+
+        grupoFirebase.setValue(grupo)
+
         val intent=Intent(LoginActivity.contextGlobal,AddtoGroupChatActivity::class.java)
-        intent.putExtra("nombreGrupo",nombreGpoInput.text.toString())
-        intent.putExtra("fotoGrupo", encodedImage)
+       // intent.putExtra("nombreGrupo",nombreGpoInput.text.toString())
+        //intent.putExtra("fotoGrupo", encodedImage)
+        intent.putExtra("grupo", grupo)
+        intent.putExtra("grupoFirebase", grupoFirebase.toString())
         startActivity(intent)
     }
 

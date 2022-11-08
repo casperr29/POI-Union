@@ -3,11 +3,12 @@ package com.poi.union.activities
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
-import android.widget.ListView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.poi.union.MainActivity
@@ -17,38 +18,49 @@ import com.poi.union.adapters.UsuariosGrupoAdapter
 import com.poi.union.models.*
 import java.time.LocalDateTime
 
-class AddtoGroupChatActivity :AppCompatActivity() {
+class AddtoGroupChatActivity :AppCompatActivity(), SelectedUsersListener {
 
     private var listaUsuariosGrupo = mutableListOf<Users>()
 
-    private var usersSelected = mutableListOf<Users>()
-    private var adaptadorSelect= SelectedUsersAdapter(usersSelected)
+    private var listaUsuariosSeleccionados = mutableListOf<Users>()
     //private lateinit var database: FirebaseDatabase
-    private val database = FirebaseDatabase.getInstance()
-    private val groupRef = database.getReference(Constantes.KEY_COLLECTION_GROUPS)
+    private lateinit var database: FirebaseDatabase
     private lateinit var usersref: DatabaseReference
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var listView:ListView
-    private lateinit var adaptador: UsuariosGrupoAdapter
+    private lateinit var groupRef: DatabaseReference
+    private lateinit var recyclerViewAllUsers: RecyclerView
+    private lateinit var recyclerViewSelectedUsers: RecyclerView
+    //private lateinit var listView:ListView
+    private lateinit var adaptadorUsuariosGrupo: UsuariosGrupoAdapter
+    private lateinit var adaptadorUsuariosSeleccionados: SelectedUsersAdapter
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_users_group_char)
-        usersSelected=ArrayList()
 
-        val rvSelectedUsers=findViewById<RecyclerView>(R.id.rvContactosSeleccionados)
-        //val lvCheckBox=findViewById<ListView>(R.id.listViewCheckbox)
-        rvSelectedUsers.adapter=adaptadorSelect
-        //rvSelectedUsers.visibility = View.VISIBLE
-        rvSelectedUsers.smoothScrollToPosition(usersSelected.size-1)
-
-        getUsers()
+        init()
+        getAllUsers()
         setListeners()
     }
 
 
-    private fun getUsers(){
+    private fun init(){
+
+        recyclerViewAllUsers = findViewById<RecyclerView>(R.id.rvAllUsersAddtoGroup) //se supone que este es el listViewCheckbox del activity_select_users_grpup_char
+        recyclerViewSelectedUsers = findViewById<RecyclerView>(R.id.rvContactosSeleccionados) //se supone que este es el listViewCheckbox del activity_select_users_grpup_char
+
+        this.database = FirebaseDatabase.getInstance()
+
+        this.usersref = database.getReference(Constantes.KEY_COLLECTION_USERS)
+        this.groupRef = database.getReference(Constantes.KEY_COLLECTION_GROUPS)
+        recyclerViewAllUsers.visibility = View.VISIBLE
+        recyclerViewSelectedUsers.visibility = View.VISIBLE
+
+
+        this.adaptadorUsuariosSeleccionados = SelectedUsersAdapter(listaUsuariosSeleccionados)
+    }
+
+    private fun getAllUsers(){
         usersref.addValueEventListener(valueEventListener)
     }
 
@@ -82,24 +94,22 @@ class AddtoGroupChatActivity :AppCompatActivity() {
                 linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
                 recyclerView.layoutManager = linearLayoutManager*/
 
-                adaptador = UsuariosGrupoAdapter(listaUsuariosGrupo)
+                adaptadorUsuariosGrupo = UsuariosGrupoAdapter(listaUsuariosGrupo, this@AddtoGroupChatActivity)
                 //adaptador = UsuarioAdapter(userList, this@AddtoGroupChatActivity)
                 //se supone que este es el listViewCheckbox del activity_select_users_grpup_char
-                val viewContact = findViewById<RecyclerView>(R.id.listViewCheckbox) //se supone que este es el listViewCheckbox del activity_select_users_grpup_char
-                viewContact.adapter = adaptador
+                recyclerViewAllUsers.adapter = adaptadorUsuariosGrupo
                 //viewContact.visibility = View.VISIBLE
 
-                //val linearLayoutManager = LinearLayoutManager(LoginActivity.contextGlobal)
-                //linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-                //recyclerView.layoutManager = linearLayoutManager
+                val linearLayoutManager = LinearLayoutManager(LoginActivity.contextGlobal)
+                linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+                recyclerViewAllUsers.layoutManager = linearLayoutManager
 
-                viewContact.smoothScrollToPosition(listaUsuariosGrupo.size - 1)
+                recyclerViewAllUsers.smoothScrollToPosition(listaUsuariosGrupo.size - 1)
             }
 
 
-
-
         }
+
         override fun onCancelled(error: DatabaseError) {
             Toast.makeText(LoginActivity.contextGlobal, "Error al traer Usuarios", Toast.LENGTH_SHORT).show()
 
@@ -149,40 +159,51 @@ class AddtoGroupChatActivity :AppCompatActivity() {
             }
     }*/
 
+
     private fun getSelectedUsers(){
-        var count=usersSelected.size
+        var count=listaUsuariosSeleccionados.size
 
         findViewById<RecyclerView>(R.id.rvContactosSeleccionados).removeAllViews()
 
         if(count>0){
-            val selectedView=findViewById<RecyclerView>(R.id.rvContactosSeleccionados)
-            selectedView.adapter=adaptadorSelect
-            selectedView.smoothScrollToPosition(usersSelected.size-1)
+            recyclerViewSelectedUsers.adapter= adaptadorUsuariosSeleccionados
+
+            val linearLayoutManager = LinearLayoutManager(LoginActivity.contextGlobal)
+            linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+            recyclerViewSelectedUsers.layoutManager = linearLayoutManager
+
+            recyclerViewSelectedUsers.smoothScrollToPosition(listaUsuariosSeleccionados.size-1)
         }else showErrorMessage()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setListeners(){
         //Boton para crar grupo
-        val btnCrearGrupo=findViewById<ImageView>(R.id.done)
+        val btnCrearGrupo=findViewById<ImageView>(R.id.btnCreateGroup)
 
         //Volver
-        findViewById<ImageView>(R.id.imageViewBack).setOnClickListener {
+        /*findViewById<ImageView>(R.id.imageViewBack).setOnClickListener {
             startActivity(Intent(LoginActivity.contextGlobal,CreateGroupActivity::class.java))
-        }
+        }*/
+
+        findViewById<ImageView>(R.id.ivBackAddtoGroup).setOnClickListener{ v: View -> this.onBackPressed() }
+
+
         btnCrearGrupo.setOnClickListener {
-            if (usersSelected.size>0){
-                crearGrupo()
+            if (listaUsuariosSeleccionados.size>0){
+                addMembers()
             }else{
                 showToast("Selecciona a los miembros del grupo")
             }
         }
+
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun crearGrupo(){
+    private fun addMembers(){
         val preferenceManager=PreferenceManager(LoginActivity.contextGlobal)
-        var grupo = HashMap<String, Any>()//Creamos un objeto de tipo string
+        /*var grupo = HashMap<String, Any>()//Creamos un objeto de tipo string
         val grupoFirebase = groupRef.push()//Hacemos referencia a la base de datos
 
         //Asignamos los valores a guardar para el mensaje
@@ -192,7 +213,11 @@ class AddtoGroupChatActivity :AppCompatActivity() {
         grupo.put(Constantes.KEY_GROUP_ADMIN_NAME, preferenceManager.getString(Constantes.KEY_NAME).toString())
         grupo.put(Constantes.KEY_GROUP_TIMESTAMP, LocalDateTime.now())
 
-        grupoFirebase.setValue(grupo)
+        grupoFirebase.setValue(grupo)*/
+
+        val grupoFirebase = intent.getStringExtra("grupoFirebase") as DatabaseReference //Obtenemos al usuario con el que se chatea
+        val grupo = intent.getSerializableExtra("grupo") as Grupo
+
 
         val memberRef = database.getReference(Constantes.KEY_COLLECTION_GROUPS).child(grupoFirebase.key.toString()).child(Constantes.KEY_COLLECTION_GROUP_MEMBERS)
         var miembroAdmin = HashMap<String, Any>()//Creamos un objeto de tipo string
@@ -201,19 +226,24 @@ class AddtoGroupChatActivity :AppCompatActivity() {
         miembroAdmin.put(Constantes.KEY_GROUP_MEMBER_NAME, preferenceManager.getString(Constantes.KEY_NAME).toString())
         miembroAdmin.put(Constantes.KEY_GROUP_MEMBER_ROLE, "admin")
 
-        memberRef.child(preferenceManager.getString(Constantes.KEY_EMAIL).toString()).setValue(miembroAdmin)
+        //memberRef.child(preferenceManager.getString(Constantes.KEY_EMAIL).toString()).setValue(miembroAdmin)
+        memberRef.child(preferenceManager.getString(Constantes.KEY_NAME).toString()).setValue(miembroAdmin)
 
-        for (i in usersSelected.indices){
+        for (i in listaUsuariosSeleccionados.indices){
             var miembro = HashMap<String, Any>()//Creamos un objeto de tipo string
 
-            miembro.put(Constantes.KEY_GROUP_MEMBER_ID, usersSelected[i].Email)
-            miembro.put(Constantes.KEY_GROUP_MEMBER_NAME, usersSelected[i].Nombre)
+            miembro.put(Constantes.KEY_GROUP_MEMBER_ID, listaUsuariosSeleccionados[i].Email)
+            miembro.put(Constantes.KEY_GROUP_MEMBER_NAME, listaUsuariosSeleccionados[i].Nombre)
             miembro.put(Constantes.KEY_GROUP_MEMBER_ROLE, "miembro")
 
-            memberRef.child(usersSelected[i].Email).setValue(miembro)
+            //memberRef.child(listaUsuariosSeleccionados[i].Email).setValue(miembro)
+            memberRef.child(listaUsuariosSeleccionados[i].Nombre).setValue(miembro)
         }
         showToast("¡Grupo creado!")
-        startActivity(Intent(LoginActivity.contextGlobal, MainActivity::class.java))
+        val intent = Intent(LoginActivity.contextGlobal, GroupMessagesActivity::class.java)
+        intent.putExtra(Constantes.KEY_GROUP, grupo)
+
+        //startActivity(Intent(LoginActivity.contextGlobal, GroupMessagesActivity::class.java))
     }
 
     private fun showErrorMessage(){
@@ -222,6 +252,15 @@ class AddtoGroupChatActivity :AppCompatActivity() {
 
     private fun showToast(message: String?) {
         Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onUserSelected(user: Users) {
+        if(listaUsuariosSeleccionados.contains(user)){
+            listaUsuariosSeleccionados.remove(user)
+        }else{
+            listaUsuariosSeleccionados.add(user)
+        }
+        getSelectedUsers()
     }
 
 }

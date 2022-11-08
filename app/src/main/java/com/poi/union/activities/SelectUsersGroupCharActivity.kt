@@ -12,9 +12,9 @@ class SelectUsersGroupCharActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_users_group_char)
 
-        val btn_create = findViewById<ImageView>(R.id.done)
+        val btn_create = findViewById<ImageView>(R.id.btnCreateGroup)
         val search = findViewById<SearchView>(R.id.busqueda)
-        val listView=findViewById<ListView>(R.id.listViewCheckbox)
+        val listView=findViewById<ListView>(R.id.rvAllUsersAddtoGroup)
 
         btn_create.setOnClickListener(){
             val myIntent =  Intent(this, MessagesActivity::class.java)

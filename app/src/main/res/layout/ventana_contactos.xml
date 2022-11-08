@@ -14,15 +14,15 @@
         android:id="@+id/frameLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/set_nombreGrupo">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/imgContacto"
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_80sdp"
+            android:id="@+id/rivUserCheckImage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:background="@drawable/imagen_fondo"
             android:scaleType="centerCrop"
             app:riv_oval="true" />
@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
         android:buttonTint="@color/them_light_black"
+        android:enabled="false"
         android:minHeight="48dp"
         android:text="agregar"
         android:textColor="@color/them_light_black"

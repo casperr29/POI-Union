@@ -1,7 +1,5 @@
 package com.poi.union.adapters
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +9,7 @@ import com.poi.union.models.Users
 import kotlinx.android.synthetic.main.item_container_user.view.*
 
 
-class UsuariosGruposAdapter(val listaUsuariosGrupo: MutableList<Users>) : RecyclerView.Adapter<UsuariosGruposAdapter.GruposViewHolder>(){
+class UsuariosGruposAdapterDEPRECATED(val listaUsuariosGrupo: MutableList<Users>) : RecyclerView.Adapter<UsuariosGruposAdapterDEPRECATED.GruposViewHolder>(){
 
     fun addItem(usuarioModel : Users){
         if (!this.isItemAdded(usuarioModel.Email))

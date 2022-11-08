@@ -9,6 +9,6 @@ class Grupo : Serializable {
     var adminId: String = ""
     var adminName: String = ""
     var timestamp: String = ""
-    var members: List<MiembroGrupo>? = null
+    var members: MutableList<MiembroGrupo>? = null
     //var nfts: List<NFT>? = null
 }
