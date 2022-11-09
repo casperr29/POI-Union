@@ -214,7 +214,6 @@ class AddtoGroupChatActivity :AppCompatActivity(), SelectedUsersListener {
         grupo.put(Constantes.KEY_GROUP_TIMESTAMP, LocalDateTime.now())
 
         grupoFirebase.setValue(grupo)*/
-
         val grupoFirebase = intent.getStringExtra("grupoFirebase") as DatabaseReference //Obtenemos al usuario con el que se chatea
         val grupo = intent.getSerializableExtra("grupo") as Grupo
 
@@ -222,8 +221,12 @@ class AddtoGroupChatActivity :AppCompatActivity(), SelectedUsersListener {
         val memberRef = database.getReference(Constantes.KEY_COLLECTION_GROUPS).child(grupoFirebase.key.toString()).child(Constantes.KEY_COLLECTION_GROUP_MEMBERS)
         var miembroAdmin = HashMap<String, Any>()//Creamos un objeto de tipo string
 
-        miembroAdmin.put(Constantes.KEY_GROUP_MEMBER_ID, preferenceManager.getString(Constantes.KEY_EMAIL).toString())
+        /*miembroAdmin.put(Constantes.KEY_GROUP_MEMBER_ID, preferenceManager.getString(Constantes.KEY_EMAIL).toString())
         miembroAdmin.put(Constantes.KEY_GROUP_MEMBER_NAME, preferenceManager.getString(Constantes.KEY_NAME).toString())
+        miembroAdmin.put(Constantes.KEY_GROUP_MEMBER_ROLE, "admin")*/
+
+        miembroAdmin[Constantes.KEY_GROUP_MEMBER_ID]=preferenceManager.getString(Constantes.KEY_EMAIL).toString()
+        miembroAdmin[Constantes.KEY_GROUP_MEMBER_NAME]=preferenceManager.getString(Constantes.KEY_NAME).toString()
         miembroAdmin.put(Constantes.KEY_GROUP_MEMBER_ROLE, "admin")
 
         //memberRef.child(preferenceManager.getString(Constantes.KEY_EMAIL).toString()).setValue(miembroAdmin)

@@ -54,10 +54,10 @@ class CreateGroupActivity:AppCompatActivity() {
         val buttonSiguiente=findViewById<Button>(R.id.Crear_btn)
 
         //Volver a la pantalla de lista de grupos
-        /*findViewById<Button>(R.id.Volver_btn).setOnClickListener {
+        findViewById<Button>(R.id.Volver_btn).setOnClickListener {
             changeFragment(GruposFragment(),"grupos_fragment")
-        }*/
-        findViewById<Button>(R.id.Volver_btn).setOnClickListener{ v: View -> this.onBackPressed() }
+        }
+        //findViewById<Button>(R.id.Volver_btn).setOnClickListener{ v: View -> this.onBackPressed() }
 
         //Obtenemos la vista de la foto de grupo
         val imagenGrupo=findViewById<RoundedImageView>(R.id.imgCreateGroup)
@@ -95,9 +95,12 @@ class CreateGroupActivity:AppCompatActivity() {
         var grupo = HashMap<String, Any>()//Creamos un objeto de tipo string
         val grupoFirebase = groupRef.push()//Hacemos referencia a la base de datos
 
-        //Asignamos los valores a guardar para el mensaje
-        grupo.put(Constantes.KEY_GROUP_NAME, intent.getStringExtra("nombreGrupo").toString())
-        grupo.put(Constantes.KEY_GROUP_IMAGE, intent.getStringExtra("fotoGrupo").toString())
+        //Asignamos los valores a guardar para el grupo
+        //grupo.put(Constantes.KEY_GROUP_NAME, intent.getStringExtra("nombreGrupo").toString())
+        grupo[Constantes.KEY_GROUP_NAME]=nombreGpoInput.text.toString()
+        //message[Constantes.KEY_MESSAGE] = txtInput.text.toString()
+        //grupo.put(Constantes.KEY_GROUP_IMAGE, intent.getStringExtra("fotoGrupo").toString())
+        grupo[Constantes.KEY_GROUP_IMAGE] = encodedImage
         grupo.put(Constantes.KEY_GROUP_ADMIN_ID, preferenceManager.getString(Constantes.KEY_EMAIL).toString())
         grupo.put(Constantes.KEY_GROUP_ADMIN_NAME, preferenceManager.getString(Constantes.KEY_NAME).toString())
         grupo.put(Constantes.KEY_GROUP_TIMESTAMP, LocalDateTime.now())
@@ -105,8 +108,10 @@ class CreateGroupActivity:AppCompatActivity() {
         grupoFirebase.setValue(grupo)
 
         val intent=Intent(LoginActivity.contextGlobal,AddtoGroupChatActivity::class.java)
-       // intent.putExtra("nombreGrupo",nombreGpoInput.text.toString())
+
+        //intent.putExtra("nombreGrupo",nombreGpoInput.text.toString())
         //intent.putExtra("fotoGrupo", encodedImage)
+
         intent.putExtra("grupo", grupo)
         intent.putExtra("grupoFirebase", grupoFirebase.toString())
         startActivity(intent)
