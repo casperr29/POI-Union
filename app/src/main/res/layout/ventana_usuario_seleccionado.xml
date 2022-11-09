@@ -24,7 +24,7 @@
             android:layout_marginStart="10dp"
             android:paddingRight="15dp"
             android:text="El cocos"
-            android:textColor="@color/them_light_black"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/linearLayout"
             app:layout_constraintTop_toTopOf="parent" />

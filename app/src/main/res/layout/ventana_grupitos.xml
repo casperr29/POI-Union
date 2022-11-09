@@ -22,7 +22,7 @@
             android:gravity="center"
             android:text="Subequipo 1= los umpalumpas de LMAD"
             android:textAlignment="center"
-            android:textColor="@color/them_light_black"
+            android:textColor="@color/white"
             android:textSize="16dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
