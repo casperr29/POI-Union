@@ -108,15 +108,25 @@ class GruposFragment : Fragment(), GroupListener {
 
         override fun onDataChange(snapshot: DataSnapshot) {
 
+            groupList.clear()
+
             for (snap in snapshot.children) {
                 val groupMap: HashMap<String, Any> = snap.value as HashMap<String, Any>
 
+                var isMember = false
+
                 val grupo = Grupo()
 
-                grupo.grupoId = groupMap[Constantes.KEY_GROUP_ID].toString()
+                val currentUserName = preferenceManager.getString(Constantes.KEY_NAME).toString()
+
+
+                grupo.grupoId = snap.key.toString()
                 grupo.grupoName = groupMap[Constantes.KEY_GROUP_NAME].toString()
                 grupo.grupoImagen = groupMap[Constantes.KEY_GROUP_IMAGE].toString()
                 grupo.adminId = groupMap[Constantes.KEY_GROUP_ADMIN_ID].toString()
+
+                if(grupo.adminId.equals(currentUserName))
+                    isMember = true
 
                 //Solo añadiremos los miembros una vez que se hayan cargado
                 if(groupMap[Constantes.KEY_COLLECTION_GROUP_MEMBERS] != null){
@@ -126,17 +136,24 @@ class GruposFragment : Fragment(), GroupListener {
                         var miembroTemp = MiembroGrupo()
                         var miembroMap = member as HashMap<String, Any>
 
+                        miembroTemp.id = miembroMap[Constantes.KEY_GROUP_MEMBER_ID].toString()
                         miembroTemp.nombre = miembroMap[Constantes.KEY_GROUP_MEMBER_NAME].toString()
                         miembroTemp.rol = miembroMap[Constantes.KEY_GROUP_MEMBER_ROLE].toString()
 
                         grupo.members?.add(miembroTemp)
 
+                        val currentUserEmail = preferenceManager.getString(Constantes.KEY_EMAIL).toString()
+
+                        if(miembroTemp.id.equals(currentUserEmail))
+                            isMember = true
+
                     }
-                }
+               }
 
                 grupo.timestamp = groupMap[Constantes.KEY_GROUP_TIMESTAMP].toString()
 
-                groupList.add(grupo)
+                if(isMember)
+                    groupList.add(grupo)
             }
 
             if(groupList.size > 0){

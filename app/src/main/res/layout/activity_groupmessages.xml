@@ -28,7 +28,7 @@
                 app:tint="@color/white" />
 
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/fotoPerfil"
+                android:id="@+id/rivGroupImage"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_gravity="center"
@@ -81,7 +81,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPrivateChat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="578dp"
             android:visibility="visible" />
 
     </LinearLayout>

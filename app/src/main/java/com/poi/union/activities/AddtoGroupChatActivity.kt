@@ -214,11 +214,20 @@ class AddtoGroupChatActivity :AppCompatActivity(), SelectedUsersListener {
         grupo.put(Constantes.KEY_GROUP_TIMESTAMP, LocalDateTime.now())
 
         grupoFirebase.setValue(grupo)*/
-        val grupoFirebase = intent.getStringExtra("grupoFirebase") as DatabaseReference //Obtenemos al usuario con el que se chatea
-        val grupo = intent.getSerializableExtra("grupo") as Grupo
+
+        val lastId = intent.getStringExtra("lastId")
+        val grupoFirebase = groupRef.push()
+        val grupo = intent.getSerializableExtra("grupo") as HashMap<String, Any>
+
+        var grupoTemp = Grupo()
+
+        grupoTemp.grupoId = grupoFirebase.key.toString()
+        grupoTemp.grupoName = grupo[Constantes.KEY_GROUP_NAME].toString()
+        grupoTemp.grupoImagen = grupo[Constantes.KEY_GROUP_IMAGE].toString()
+        grupoTemp.timestamp = grupo[Constantes.KEY_GROUP_TIMESTAMP].toString()
 
 
-        val memberRef = database.getReference(Constantes.KEY_COLLECTION_GROUPS).child(grupoFirebase.key.toString()).child(Constantes.KEY_COLLECTION_GROUP_MEMBERS)
+        val memberRef = database.getReference(Constantes.KEY_COLLECTION_GROUPS).child(lastId.toString()).child(Constantes.KEY_COLLECTION_GROUP_MEMBERS)
         var miembroAdmin = HashMap<String, Any>()//Creamos un objeto de tipo string
 
         /*miembroAdmin.put(Constantes.KEY_GROUP_MEMBER_ID, preferenceManager.getString(Constantes.KEY_EMAIL).toString())
@@ -244,7 +253,9 @@ class AddtoGroupChatActivity :AppCompatActivity(), SelectedUsersListener {
         }
         showToast("¡Grupo creado!")
         val intent = Intent(LoginActivity.contextGlobal, GroupMessagesActivity::class.java)
-        intent.putExtra(Constantes.KEY_GROUP, grupo)
+        intent.putExtra(Constantes.KEY_GROUP, grupoTemp)
+        startActivity(intent)
+
 
         //startActivity(Intent(LoginActivity.contextGlobal, GroupMessagesActivity::class.java))
     }

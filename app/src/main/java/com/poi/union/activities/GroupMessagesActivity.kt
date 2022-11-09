@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
+import com.makeramen.roundedimageview.RoundedImageView
 import com.poi.union.R
 import com.poi.union.adapters.MensajesAdapter
 import com.poi.union.models.*
@@ -26,7 +27,8 @@ class GroupMessagesActivity:AppCompatActivity() {
     //Cambie private lateinit var adaptador:ChatAdapter por private lateinit var adaptador:MensajesAdapter
     private lateinit var nombreUsuario:String
     private lateinit var preferenceManager: PreferenceManager
-    private val groupReceiver="General"
+    private lateinit var groupReceiver: Grupo
+    //private val groupReceiver="General"
     //variable que se uso en MessagesActivity: private lateinit var receiverUser: Users
     private lateinit var database:FirebaseDatabase
     private lateinit var chatRef: DatabaseReference
@@ -37,9 +39,9 @@ class GroupMessagesActivity:AppCompatActivity() {
         //cambiar a otro activity_messages pero para chat grupal
         setContentView(R.layout.activity_groupmessages)
 
+        init()
         setListeners()
         loadReceiverDetails()
-        init()
         listenMessages()
 
     }
@@ -51,10 +53,17 @@ class GroupMessagesActivity:AppCompatActivity() {
         recyclerView=  findViewById<RecyclerView>(R.id.rvPrivateChat)
         this.database=FirebaseDatabase.getInstance()
         this.chatRef=database.getReference(Constantes.KEY_COLLECTION_CHAT)
+        groupReceiver = intent.getSerializableExtra(Constantes.KEY_GROUP) as Grupo
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun loadReceiverDetails(){
-        findViewById<TextView>(R.id.tvUsernamePrivateChat).text = groupReceiver
+
+        findViewById<TextView>(R.id.tvUsernamePrivateChat).text = groupReceiver.grupoName
+
+       val groupImage = Constantes.decodeImage(groupReceiver.grupoImagen)
+
+        findViewById<RoundedImageView>(R.id.rivGroupImage).setImageBitmap(groupImage)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -70,7 +79,7 @@ class GroupMessagesActivity:AppCompatActivity() {
 
                 message[Constantes.KEY_SENDER_ID]=preferenceManager.getString(Constantes.KEY_EMAIL).toString()
                 message[Constantes.KEY_SENDER_NAME]=preferenceManager.getString(Constantes.KEY_NAME).toString()
-                message[Constantes.KEY_RECEIVER_ID]=groupReceiver
+                message[Constantes.KEY_RECEIVER_ID]=groupReceiver.grupoId
                 //message.put(Constants.KEY_RECEIVER_ID, groupReceiver)
                 message[Constantes.KEY_MESSAGE]=txtInput.text.toString()
                 message[Constantes.KEY_TIMESTAMP]=LocalDateTime.now()
@@ -120,7 +129,7 @@ class GroupMessagesActivity:AppCompatActivity() {
                 message.message = messageMap[Constantes.KEY_MESSAGE].toString()
                 message.timestamp = getReadableLocalDateTime(dateTimeTemp)
 
-                if(message.receiverId == groupReceiver)
+                if(message.receiverId == groupReceiver.grupoId)
                     listaMensajes.add(message)
             }
             count = listaMensajes.size

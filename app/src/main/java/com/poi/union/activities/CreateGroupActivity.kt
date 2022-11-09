@@ -113,7 +113,7 @@ class CreateGroupActivity:AppCompatActivity() {
         //intent.putExtra("fotoGrupo", encodedImage)
 
         intent.putExtra("grupo", grupo)
-        intent.putExtra("grupoFirebase", grupoFirebase.toString())
+        intent.putExtra("lastId", grupoFirebase.key.toString())
         startActivity(intent)
     }
 
