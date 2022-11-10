@@ -36,7 +36,33 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding=ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        replaceFragment(ChatsFragment())
+
+        val fragment = intent.getStringExtra("fragment").toString()
+
+        if(fragment.isNotEmpty()){
+            when(fragment){
+               "1"->{replaceFragment(ChatsFragment())
+               binding.bottomNavigation.selectedItemId = R.id.chats
+               }
+               "2"-> {
+                   replaceFragment(GruposFragment())
+                   binding.bottomNavigation.selectedItemId =  R.id.grupos
+               }
+               "3"-> {
+                   replaceFragment(TareasFragment())
+                   binding.bottomNavigation.selectedItemId =  R.id.tareas
+
+               }
+                else->{
+                    replaceFragment(ChatsFragment())
+                    binding.bottomNavigation.selectedItemId = R.id.chats
+                }
+            }
+        }else{
+            replaceFragment(ChatsFragment())
+
+        }
+
 
         val preferenceManager = PreferenceManager(applicationContext)
 

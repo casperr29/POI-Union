@@ -1,5 +1,6 @@
 package com.poi.union.activities
 
+import android.content.Intent
 import android.icu.text.AlphabeticIndex
 import android.os.Build
 import android.os.Bundle
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.makeramen.roundedimageview.RoundedImageView
+import com.poi.union.MainActivity
 import com.poi.union.R
 import com.poi.union.adapters.MensajesAdapter
 import com.poi.union.models.*
@@ -68,7 +70,11 @@ class GroupMessagesActivity:AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setListeners(){
-        findViewById<ImageView>(R.id.imageViewBack).setOnClickListener { View-> this.onBackPressed()}
+        findViewById<ImageView>(R.id.imageViewBack).setOnClickListener {
+            val myIntent =  Intent(this, MainActivity::class.java)
+            myIntent.putExtra("fragment", "2");
+            startActivity(myIntent)
+            finish()}
         //findViewById<ImageView>(R.id.imageViewBack).setOnClickListener{ v: View -> this.onBackPressed() }
         findViewById<ImageView>(R.id.btnEnviarPrivateChat).setOnClickListener {
             //val imagenUsuario = preferenceManager.getString(Constantes.KEY_IMAGE).toString()//Asignamos la imagen de perfil del usuario logeado a una variable

@@ -26,6 +26,7 @@ import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
 import kotlin.collections.HashMap
 import com.poi.union.MainActivity
+import com.poi.union.models.PreferenceManager
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -60,6 +61,8 @@ class SignUpActivity : AppCompatActivity() {
 
         btn_signin.setOnClickListener{
             if (validation()) {
+                val preferenceManager = PreferenceManager(applicationContext)
+                LoginActivity.contextGlobal = applicationContext
                 val usernombre = findViewById<EditText>(R.id.inputNombreCompleto)
                 val useremail = findViewById<EditText>(R.id.inputEmail)
                 val usercontrasena = findViewById<EditText>(R.id.inputContrasena)
@@ -76,7 +79,12 @@ class SignUpActivity : AppCompatActivity() {
                 val userfirebase = userref.push()
                 userfirebase.setValue(usuario)
 
+                preferenceManager.putString(Constantes.KEY_NAME, usuario[Constantes.KEY_NAME].toString())
+                preferenceManager.putString(Constantes.KEY_IMAGE, usuario[Constantes.KEY_IMAGE].toString())
+                preferenceManager.putString(Constantes.KEY_EMAIL, usuario[Constantes.KEY_EMAIL].toString())
+
                 val myIntent =  Intent(this, MainActivity::class.java)
+                myIntent.putExtra("fragment", "1");
                 startActivity(myIntent)
                 finish()
             }

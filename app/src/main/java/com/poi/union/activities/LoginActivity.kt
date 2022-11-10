@@ -42,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
 
         btn_reg.setOnClickListener(){
             val myIntent =  Intent(this, SignUpActivity::class.java)
+            myIntent.putExtra("fragment", "1");
             startActivity(myIntent)
             finish()
         }

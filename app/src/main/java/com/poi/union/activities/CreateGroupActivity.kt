@@ -55,7 +55,7 @@ class CreateGroupActivity:AppCompatActivity() {
 
         //Volver a la pantalla de lista de grupos
         findViewById<Button>(R.id.Volver_btn).setOnClickListener {
-            changeFragment(GruposFragment(),"grupos_fragment")
+            View -> onBackPressed()
         }
         //findViewById<Button>(R.id.Volver_btn).setOnClickListener{ v: View -> this.onBackPressed() }
 
