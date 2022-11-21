@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragments.SalirFragment">
+
+
+    <TextView
+        android:layout_marginTop="@dimen/_70sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Establecer estado"
+        android:textStyle="bold"
+        android:textColor="@color/primary_dark"
+        android:textAlignment="center"
+        android:textSize="@dimen/_25sdp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_30sdp">
+
+        <LinearLayout
+            android:id="@+id/online"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:background="@drawable/userstate"
+            android:orientation="horizontal"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="0dp">
+
+        </LinearLayout>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/onlinestate"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/imagen_fondo"
+            android:backgroundTint="#4CAF50"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/tvNombreContacto"
+            app:layout_constraintEnd_toStartOf="@+id/tvNombreContacto"
+            app:layout_constraintStart_toStartOf="@+id/online"
+            app:layout_constraintTop_toTopOf="@+id/tvNombreContacto"
+            app:riv_oval="true"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/tvNombreContacto"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="Online"
+            android:textAlignment="center"
+            android:textColor="@color/input_backgorund"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/online"
+
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp">
+
+        <LinearLayout
+            android:id="@+id/ausente"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:background="@drawable/userstate"
+            android:orientation="horizontal"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="0dp">
+
+        </LinearLayout>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ausentestate"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/imagen_fondo"
+            android:backgroundTint="#FFC107"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/ausentetext"
+            app:layout_constraintEnd_toStartOf="@+id/ausentetext"
+            app:layout_constraintStart_toStartOf="@+id/ausente"
+            app:layout_constraintTop_toTopOf="@+id/ausentetext"
+            app:riv_oval="true"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/ausentetext"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="Ausente"
+            android:textAlignment="center"
+            android:textColor="@color/input_backgorund"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/ausente"
+
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp">
+
+        <LinearLayout
+            android:id="@+id/Ocupado"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:background="@drawable/userstate"
+            android:orientation="horizontal"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="0dp">
+
+        </LinearLayout>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/ocupadostate"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/imagen_fondo"
+            android:backgroundTint="@color/error"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/ocupadotext"
+            app:layout_constraintEnd_toStartOf="@+id/ocupadotext"
+            app:layout_constraintStart_toStartOf="@+id/Ocupado"
+            app:layout_constraintTop_toTopOf="@+id/ocupadotext"
+            app:riv_oval="true"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/ocupadotext"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="Ocupado"
+            android:textAlignment="center"
+            android:textColor="@color/input_backgorund"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/Ocupado"
+
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_50sdp">
+
+        <LinearLayout
+            android:id="@+id/invisible"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
+            android:background="@drawable/userstate"
+            android:orientation="horizontal"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="0dp">
+
+        </LinearLayout>
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/invisiblestate"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/imagen_fondo"
+            android:backgroundTint="@color/secondary_text"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/invisibletext"
+            app:layout_constraintEnd_toStartOf="@+id/invisibletext"
+            app:layout_constraintStart_toStartOf="@+id/invisible"
+            app:layout_constraintTop_toTopOf="@+id/invisibletext"
+            app:riv_oval="true"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/invisibletext"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="Invisible"
+            android:textAlignment="center"
+            android:textColor="@color/input_backgorund"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/invisible"
+
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <Button
+        android:id="@+id/salir_btn"
+        android:layout_width="239dp"
+        android:layout_height="72dp"
+        android:text="Salir"
+        android:backgroundTint="@color/primary_dark"
+        android:textSize="@dimen/_20sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:textAlignment="textStart"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_dark"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -30,7 +30,7 @@
             android:layout_weight="1"
             android:text="@string/app_name"
             android:textAlignment="textStart"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_dark"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -41,7 +41,7 @@
             android:layout_weight="1"
             android:text="@string/app_name"
             android:textAlignment="textStart"
-            android:textColor="@color/white"
+            android:textColor="@color/primary_dark"
             android:textSize="16sp"
             android:textStyle="bold" />
 

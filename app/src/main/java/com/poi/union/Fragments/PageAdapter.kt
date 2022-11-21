@@ -8,13 +8,14 @@ import com.poi.union.models.Constantes
 import com.poi.union.models.mensaje
 
 class PageAdapter(fragmentActivity: FragmentActivity):FragmentStateAdapter(fragmentActivity) {
-    override fun getItemCount()=3
+    override fun getItemCount()=4
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
             0->{ChatsFragment()}
             1->{GruposFragment()}
             2->{TareasFragment()}
+            3->{SalirFragment()}
             else->{throw NotFoundException("Position not found")}
         }
     }

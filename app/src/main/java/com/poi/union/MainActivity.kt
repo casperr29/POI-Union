@@ -13,10 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.makeramen.roundedimageview.RoundedImageView
-import com.poi.union.Fragments.ChatsFragment
-import com.poi.union.Fragments.GruposFragment
-import com.poi.union.Fragments.PageAdapter
-import com.poi.union.Fragments.TareasFragment
+import com.poi.union.Fragments.*
 import com.poi.union.activities.LoginActivity
 import com.poi.union.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
@@ -53,6 +50,11 @@ class MainActivity : AppCompatActivity() {
                    binding.bottomNavigation.selectedItemId =  R.id.tareas
 
                }
+                "4"-> {
+                    replaceFragment(SalirFragment())
+                    binding.bottomNavigation.selectedItemId =  R.id.salir
+
+                }
                 else->{
                     replaceFragment(ChatsFragment())
                     binding.bottomNavigation.selectedItemId = R.id.chats
@@ -80,6 +82,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.chats->replaceFragment(ChatsFragment())
                 R.id.grupos->replaceFragment(GruposFragment())
                 R.id.tareas->replaceFragment(TareasFragment())
+                R.id.salir->replaceFragment(SalirFragment())
                 else->{
 
                     var intent= Intent(applicationContext, LoginActivity::class.java)
