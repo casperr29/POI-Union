@@ -70,5 +70,13 @@ class Constantes {
             val bytes = byteArrayOutputStream.toByteArray()
             return Base64.encodeToString(bytes, Base64.DEFAULT)
         }
+
+        const val CIPHER_KEY = "BEWAREOBLIVIONISATHAND"
+        const val IS_CIPHER_ACTIVATED = "isCipherActivated"
+        const val BASE64_REGEX = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$"
+
+        fun isBase64(text:String): Boolean{
+            return text.matches(Regex(BASE64_REGEX)) && text.length > 3
+        }
     }
 }
