@@ -10,6 +10,7 @@ class Users : Serializable{
     var Email : String = ""
     var Carrera:String=""
     var Contrasena:String=""
+    var Activo:String=""
 
 
 //    var Carrera : DocumentReference? = null

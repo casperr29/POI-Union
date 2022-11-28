@@ -45,6 +45,7 @@
                         android:textSize="26sp"
                         android:textStyle="bold" />
 
+
                     <TextView
                         android:id="@+id/ultimoMensaje"
                         android:layout_width="wrap_content"
@@ -64,6 +65,17 @@
                 android:layout_alignParentRight="true"
                 android:padding="15dp"
                 android:text="8:00am" />
+
+            <TextView
+                android:id="@+id/userState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="13dp"
+                android:text="Online"
+                android:textColor="@color/primary"
+                android:textSize="18sp" />
 
         </RelativeLayout>
 

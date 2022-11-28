@@ -22,6 +22,7 @@ class UsuarioAdapter(private val listaUsuarios: MutableList<Users>, private var 
         fun setUserData(user: Users, userListener: UserListener) {
 
             itemView.findViewById<TextView>(R.id.userName).text = user.Nombre
+            itemView.findViewById<TextView>(R.id.userState).text=user.Activo
 
             itemView.setOnClickListener{ userListener.onUserClicked(user)}
 

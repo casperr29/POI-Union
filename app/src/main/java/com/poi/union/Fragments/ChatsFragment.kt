@@ -63,7 +63,8 @@ class ChatsFragment : Fragment(R.layout.fragment_chats), UserListener {
     }
 
     private fun getUsers(){
-        userref.addValueEventListener(valueEventListener)
+        //userref.addValueEventListener(valueEventListener)
+        userref.addListenerForSingleValueEvent(valueEventListener)
     }
 
     private val valueEventListener = object: ValueEventListener {
@@ -87,6 +88,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats), UserListener {
                 user.Carrera = userMap[Constantes.KEY_CARRERA].toString()
                 user.Foto = userMap[Constantes.KEY_ROL].toString()
                 user.Rol = userMap[Constantes.KEY_ROL].toString()
+                user.Activo=userMap[Constantes.KEY_ACTIVE].toString()
 
                 userList.add(user)
             }

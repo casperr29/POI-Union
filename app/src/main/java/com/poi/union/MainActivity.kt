@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.makeramen.roundedimageview.RoundedImageView
 import com.poi.union.Fragments.*
 import com.poi.union.activities.LoginActivity
@@ -27,6 +29,7 @@ import java.math.RoundingMode
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var userref: DatabaseReference
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,11 +53,7 @@ class MainActivity : AppCompatActivity() {
                    binding.bottomNavigation.selectedItemId =  R.id.tareas
 
                }
-                "4"-> {
-                    replaceFragment(SalirFragment())
-                    binding.bottomNavigation.selectedItemId =  R.id.salir
-
-                }
+  
                 else->{
                     replaceFragment(ChatsFragment())
                     binding.bottomNavigation.selectedItemId = R.id.chats
@@ -82,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.chats->replaceFragment(ChatsFragment())
                 R.id.grupos->replaceFragment(GruposFragment())
                 R.id.tareas->replaceFragment(TareasFragment())
-                R.id.salir->replaceFragment(SalirFragment())
+
                 else->{
 
                     var intent= Intent(applicationContext, LoginActivity::class.java)
@@ -94,6 +93,33 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+        //switch del estado usuario
+        //Si algo no jala es aqui, checar las rutas del get reference para que se modifique el estado del usuario
+        binding.switchActivo.setOnClickListener {
+            if(binding.switchActivo.isChecked) {
+                binding.switchActivo.text = "Online"
+
+                var usuario = HashMap<String, Any>()
+                usuario[Constantes.KEY_ACTIVE]="Online"
+
+                val database = FirebaseDatabase.getInstance()
+
+                val reference = database.getReference(Constantes.KEY_EMAIL)
+                reference.setValue(usuario)
+            } else {
+                binding.switchActivo.text = "Offline"
+                var usuario = HashMap<String, Any>()
+                usuario[Constantes.KEY_ACTIVE]="Offline"
+
+                val database = FirebaseDatabase.getInstance()
+
+                val reference = database.getReference(Constantes.KEY_EMAIL)
+                reference.setValue(usuario)
+            }
+        }
+
+
     }
 
 

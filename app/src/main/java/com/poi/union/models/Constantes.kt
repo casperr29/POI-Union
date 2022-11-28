@@ -23,6 +23,7 @@ class Constantes {
         const val KEY_IMAGE = "image"
         const val KEY_PREFERENCE_NAME = "chatAppPreference"
         const val KEY_USER = "user"
+        const val KEY_ACTIVE="online"
 
         const val KEY_COLLECTION_CHAT = "chat"
         const val KEY_SENDER_ID = "senderId"

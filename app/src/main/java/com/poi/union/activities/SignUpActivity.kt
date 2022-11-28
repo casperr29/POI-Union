@@ -75,6 +75,7 @@ class SignUpActivity : AppCompatActivity() {
                 usuario[Constantes.KEY_ROL] = userrol
                 usuario[Constantes.KEY_CARRERA] = usercarrera
                 usuario[Constantes.KEY_IMAGE] = encodedImage
+                usuario[Constantes.KEY_ACTIVE]="Online"
 
                 val userfirebase = userref.push()
                 userfirebase.setValue(usuario)
