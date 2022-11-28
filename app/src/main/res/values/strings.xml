@@ -12,4 +12,7 @@
     <string name="chat">Chat</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAPs51gVxIQ8lOlF9F_xGe02nR7ab_eeX0</string>
+
 </resources>

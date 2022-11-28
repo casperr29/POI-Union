@@ -46,6 +46,21 @@ class GroupMessagesActivity:AppCompatActivity() {
         loadReceiverDetails()
         listenMessages()
 
+        //Ubicacion
+        val ubication=findViewById<ImageView>(R.id.ubicacion)
+
+        ubication.setOnClickListener(){
+            val myIntent =  Intent(this, UbicationGroup::class.java)
+            startActivity(myIntent)
+            finish()
+        }
+
+        val mensaje=findViewById<EditText>(R.id.etMessagePrivateChat)
+
+        val intent = intent
+        val str = intent.getStringExtra("message_key")
+        mensaje.setText(str)
+
     }
 
     private fun init(){

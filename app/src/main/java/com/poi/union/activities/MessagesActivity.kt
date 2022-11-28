@@ -1,5 +1,6 @@
 package com.poi.union.activities
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -52,6 +53,22 @@ class MessagesActivity : AppCompatActivity() {
                 .commit()
 
         }*/
+
+
+        //Ubicacion
+        val ubication=findViewById<ImageView>(R.id.ubicacion)
+
+        ubication.setOnClickListener(){
+            val myIntent =  Intent(this, Ubication::class.java)
+            startActivity(myIntent)
+            finish()
+        }
+
+        val mensaje=findViewById<EditText>(R.id.etMessagePrivateChat)
+
+        val intent = intent
+        val str = intent.getStringExtra("message_key")
+        mensaje.setText(str)
 
     }
 
