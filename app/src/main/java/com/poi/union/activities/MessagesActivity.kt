@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.poi.union.adapters.MensajesAdapter
 import com.poi.union.models.*
+import com.poi.union.utils.CifradoTools
 import java.time.format.DateTimeFormatter
 
 
@@ -25,6 +26,7 @@ class MessagesActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adaptador:MensajesAdapter
     private lateinit var nombreUsuario: String
+    private var cipherActivated = false
     private lateinit var preferenceManager: PreferenceManager
     private lateinit var receiverUser: Users
     private lateinit var database : FirebaseDatabase
@@ -56,6 +58,7 @@ class MessagesActivity : AppCompatActivity() {
     private fun init(){
         this.preferenceManager = PreferenceManager(LoginActivity.contextGlobal)
         this.nombreUsuario = preferenceManager.getString(Constantes.KEY_NAME).toString()
+        this.cipherActivated = this.preferenceManager.getBoolean(Constantes.IS_CIPHER_ACTIVATED)
         this.adaptador = MensajesAdapter(listaMensajes, preferenceManager.getString(Constantes.KEY_EMAIL).toString())
         recyclerView=  findViewById<RecyclerView>(R.id.rvPrivateChat)
         this.database = FirebaseDatabase.getInstance()
@@ -67,6 +70,13 @@ class MessagesActivity : AppCompatActivity() {
     private fun loadReceiverDetails(){
         receiverUser = intent.getSerializableExtra(Constantes.KEY_USER) as Users //Obtenemos al usuario con el que se chatea
         findViewById<TextView>(R.id.tvUsernamePrivateChat).text = receiverUser.Nombre //Mostramos su nombre en la toolbar
+        if(this.cipherActivated) {
+            findViewById<ImageButton>(R.id.ibActivatePrivateCipher).visibility =  View.INVISIBLE
+            findViewById<ImageButton>(R.id.ibDeactivatePrivateCipher).visibility = View.VISIBLE
+        }else{
+            findViewById<ImageButton>(R.id.ibActivatePrivateCipher).visibility = View.VISIBLE
+            findViewById<ImageButton>(R.id.ibDeactivatePrivateCipher).visibility = View.INVISIBLE
+        }
     }
 
 
@@ -90,8 +100,8 @@ class MessagesActivity : AppCompatActivity() {
                 message[Constantes.KEY_SENDER_NAME] = preferenceManager.getString(Constantes.KEY_NAME).toString()
                 message[Constantes.KEY_RECEIVER_ID] = receiverUser.Email
 
-                //message[Constantes.KEY_MESSAGE] = CifradoTools.cifrar(txtInput.text.toString(), "llavesita123")
-                message[Constantes.KEY_MESSAGE] = txtInput.text.toString()
+                if(this.cipherActivated) message[Constantes.KEY_MESSAGE] = CifradoTools.cifrar(txtInput.text.toString(), Constantes.CIPHER_KEY)
+                else message[Constantes.KEY_MESSAGE] = txtInput.text.toString()
 
                 message[Constantes.KEY_TIMESTAMP] = LocalDateTime.now()
                 //message[Constantes.KEY_IMAGE] = imagenUsuario
@@ -100,6 +110,20 @@ class MessagesActivity : AppCompatActivity() {
                 txtInput.text.clear() //Limpiamos el input
 
             }
+        }
+
+        findViewById<ImageButton>(R.id.ibActivatePrivateCipher).setOnClickListener(){
+            this.cipherActivated = true
+            this.preferenceManager.putBoolean(Constantes.IS_CIPHER_ACTIVATED, true)
+            it.visibility = View.INVISIBLE
+            findViewById<ImageButton>(R.id.ibDeactivatePrivateCipher).visibility = View.VISIBLE
+        }
+
+        findViewById<ImageButton>(R.id.ibDeactivatePrivateCipher).setOnClickListener(){
+            this.cipherActivated = false
+            this.preferenceManager.putBoolean(Constantes.IS_CIPHER_ACTIVATED, false)
+            it.visibility = View.INVISIBLE
+            findViewById<ImageButton>(R.id.ibActivatePrivateCipher).visibility = View.VISIBLE
         }
     }
 
@@ -140,8 +164,10 @@ class MessagesActivity : AppCompatActivity() {
                 message.senderId = messageMap[Constantes.KEY_SENDER_ID].toString()
                 message.senderName = messageMap[Constantes.KEY_SENDER_NAME].toString()
                 message.receiverId = messageMap[Constantes.KEY_RECEIVER_ID].toString()
-                //message.message = CifradoTools.descifrar(messageMap[Constantes.KEY_MESSAGE].toString(), "llavesita123")
-                message.message = messageMap[Constantes.KEY_MESSAGE].toString()
+                if(Constantes.isBase64(message.message))
+                    message.message = CifradoTools.descifrar(messageMap[Constantes.KEY_MESSAGE].toString(), Constantes.CIPHER_KEY)
+                else
+                    message.message = messageMap[Constantes.KEY_MESSAGE].toString()
                 message.timestamp = getReadableLocalDateTime(dateTimeTemp)
 
                 if(message.senderId == preferenceManager.getString(Constantes.KEY_EMAIL) && message.receiverId == receiverUser.Email)
