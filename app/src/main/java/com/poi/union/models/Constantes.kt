@@ -29,6 +29,7 @@ class Constantes {
         const val KEY_SENDER_NAME = "senderName"
         const val KEY_RECEIVER_ID = "receiverId"
         const val KEY_MESSAGE = "message"
+        const val KEY_IS_ENCRYPTED = "isEncrypted"
 
         const val KEY_TIMESTAMP = "timestamp"
         const val KEY_TMSP_DAY = "dayOfMonth"
@@ -73,7 +74,8 @@ class Constantes {
 
         const val CIPHER_KEY = "BEWAREOBLIVIONISATHAND"
         const val IS_CIPHER_ACTIVATED = "isCipherActivated"
-        const val BASE64_REGEX = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$"
+        //const val BASE64_REGEX = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$"
+        const val BASE64_REGEX = "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?\$"
 
         fun isBase64(text:String): Boolean{
             return text.matches(Regex(BASE64_REGEX)) && text.length > 3

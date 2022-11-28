@@ -38,8 +38,8 @@ class MessagesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_messages)
 
         setListeners()//Asignamos los listeners
-        loadReceiverDetails() //Cargamos los detalles del usuario con el que chateamos
         init()//Inicializamos los atributos de la clase
+        loadReceiverDetails() //Cargamos los detalles del usuario con el que chateamos
         getMessages() //Recibimos los mensajes
 
 
@@ -100,7 +100,10 @@ class MessagesActivity : AppCompatActivity() {
                 message[Constantes.KEY_SENDER_NAME] = preferenceManager.getString(Constantes.KEY_NAME).toString()
                 message[Constantes.KEY_RECEIVER_ID] = receiverUser.Email
 
-                if(this.cipherActivated) message[Constantes.KEY_MESSAGE] = CifradoTools.cifrar(txtInput.text.toString(), Constantes.CIPHER_KEY)
+                if(this.cipherActivated){
+                    message[Constantes.KEY_MESSAGE] = CifradoTools.cifrar(txtInput.text.toString(), Constantes.CIPHER_KEY)
+                    message[Constantes.KEY_IS_ENCRYPTED] = true
+                }
                 else message[Constantes.KEY_MESSAGE] = txtInput.text.toString()
 
                 message[Constantes.KEY_TIMESTAMP] = LocalDateTime.now()
@@ -164,7 +167,9 @@ class MessagesActivity : AppCompatActivity() {
                 message.senderId = messageMap[Constantes.KEY_SENDER_ID].toString()
                 message.senderName = messageMap[Constantes.KEY_SENDER_NAME].toString()
                 message.receiverId = messageMap[Constantes.KEY_RECEIVER_ID].toString()
-                if(Constantes.isBase64(message.message))
+                message.isEncrypted = messageMap[Constantes.KEY_IS_ENCRYPTED].toString() == "true"
+
+                if(message.isEncrypted)
                     message.message = CifradoTools.descifrar(messageMap[Constantes.KEY_MESSAGE].toString(), Constantes.CIPHER_KEY)
                 else
                     message.message = messageMap[Constantes.KEY_MESSAGE].toString()
