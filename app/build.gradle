@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.poi.union"
-        minSdk 21
+        minSdk 23 //
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -73,6 +73,8 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
 
+    //jitsi integration parte2
+    implementation ('org.jitsi.react:jitsi-meet-sdk:+') { transitive = true }
 
 
 }

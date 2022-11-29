@@ -15,13 +15,18 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.facebook.react.modules.core.PermissionListener
 import com.poi.union.adapters.MensajesAdapter
 import com.poi.union.models.*
 import com.poi.union.utils.CifradoTools
+import org.jitsi.meet.sdk.JitsiMeetActivityDelegate
+import org.jitsi.meet.sdk.JitsiMeetActivityInterface
+import org.jitsi.meet.sdk.JitsiMeetConferenceOptions
+import org.jitsi.meet.sdk.JitsiMeetView
 import java.time.format.DateTimeFormatter
 
 
-class MessagesActivity : AppCompatActivity() {
+class MessagesActivity : AppCompatActivity(), JitsiMeetActivityInterface {
 
     private val listaMensajes = mutableListOf<mensaje>()
     private lateinit var recyclerView: RecyclerView
@@ -69,6 +74,23 @@ class MessagesActivity : AppCompatActivity() {
         val str = intent.getStringExtra("message_key")
         mensaje.setText(str)
 
+        //Chat
+        var join= findViewById<ImageView>(R.id.Callmeeting)
+
+        join.setOnClickListener {
+            val view= JitsiMeetView(this@MessagesActivity)
+            val options: JitsiMeetConferenceOptions = JitsiMeetConferenceOptions.Builder()
+                .setRoom("https://meet.jit.si/ThoroughDepthsClaimIntensely")
+                .setAudioMuted(false)
+                .setVideoMuted(false)
+                .setAudioOnly(false)
+                .setFeatureFlag("call-integration.enabled",false)
+                .setConfigOverride("requireDisplayName", true)
+                .build()
+
+            view.join(options)
+            setContentView(view)
+        }
     }
 
     private fun init(){
@@ -100,6 +122,13 @@ class MessagesActivity : AppCompatActivity() {
     private fun setListeners(){
         //Volver a la pantalla principal con el boton back
         findViewById<ImageView>(R.id.imageViewBack).setOnClickListener{ v: View -> this.onBackPressed() }
+
+        //lamar actividad para unirse a videochat
+        //findViewById<ImageView>(R.id.Callmeeting).setOnClickListener {
+            //val callintent =  Intent(this, JoinCallActivity::class.java)
+           // startActivity(callintent)
+       // }
+
 
         //Evento activado al presionar el botón de enviar mensaje
         findViewById<ImageView>(R.id.btnEnviarPrivateChat).setOnClickListener {
@@ -222,4 +251,15 @@ class MessagesActivity : AppCompatActivity() {
     private fun getReadableLocalDateTime(date:LocalDateTime):String{
         return date.format(DateTimeFormatter.ofPattern("d/M/y H:m"))
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        JitsiMeetActivityDelegate.onBackPressed()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        JitsiMeetActivityDelegate.onHostDestroy(this@MessagesActivity)
+    }
+    override fun requestPermissions(p0: Array<out String>?, p1: Int, p2: PermissionListener?) {}
 }
