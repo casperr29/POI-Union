@@ -7,7 +7,7 @@
     tools:context=".activities.MessagesActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbarPrivateMessages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primary"
@@ -17,16 +17,55 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tbPMContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:layout_editor_absoluteX="16dp">
+
+            <ImageButton
+                android:id="@+id/ibActivatePrivateCipher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tbPMContent"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                android:backgroundTint="#5A5A5A"
+                android:minHeight="48dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_lock_open_24"
+                app:tint="#F6F6F6" />
+
+            <ImageButton
+                android:id="@+id/ibDeactivatePrivateCipher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tbPMContent"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginEnd="15dp"
+                android:backgroundTint="#8BC34A"
+                android:minHeight="48dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_lock_24"
+                app:tint="#FFFFFF" />
 
             <ImageView
                 android:id="@+id/imageViewBack"
                 android:layout_width="41dp"
                 android:layout_height="60dp"
                 android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 app:tint="@color/white" />
 
             <com.makeramen.roundedimageview.RoundedImageView
@@ -34,19 +73,27 @@
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginStart="10dp"
                 android:background="@drawable/imagen_fondo"
                 android:scaleType="centerCrop"
                 android:src="@drawable/profilepic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageViewBack"
+                app:layout_constraintTop_toTopOf="parent"
                 app:riv_oval="true" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="15dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="15dp"
+                android:gravity="start|left"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ibActivatePrivateCipher"
+                app:layout_constraintStart_toEndOf="@+id/fotoPerfil"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/tvUsernamePrivateChat"
@@ -59,52 +106,18 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.appcompat.widget.Toolbar>
-
-    <ImageButton
-        android:id="@+id/ibDeactivatePrivateCipher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_alignBottom="@+id/toolbar"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="center"
-        android:backgroundTint="#8BC34A"
-        android:minHeight="48dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:srcCompat="@drawable/ic_baseline_lock_24"
-        app:tint="#FFFFFF" />
-
-    <ImageButton
-        android:id="@+id/ibActivatePrivateCipher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_alignBottom="@+id/toolbar"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="center"
-        android:backgroundTint="#5A5A5A"
-        android:minHeight="48dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
-        app:srcCompat="@drawable/ic_baseline_lock_open_24"
-        app:tint="#F6F6F6" />
 
     <LinearLayout
         android:id="@+id/linear01"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/toolbarPrivateMessages"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linear02"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/toolbarPrivateMessages">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPrivateChat"

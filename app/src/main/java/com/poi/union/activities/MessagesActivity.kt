@@ -183,11 +183,13 @@ class MessagesActivity : AppCompatActivity() {
                 message.senderId = messageMap[Constantes.KEY_SENDER_ID].toString()
                 message.senderName = messageMap[Constantes.KEY_SENDER_NAME].toString()
                 message.receiverId = messageMap[Constantes.KEY_RECEIVER_ID].toString()
+
                 message.isEncrypted = messageMap[Constantes.KEY_IS_ENCRYPTED].toString()== "true"
                 if(message.isEncrypted)
                     message.message = CifradoTools.descifrar(messageMap[Constantes.KEY_MESSAGE].toString(), Constantes.CIPHER_KEY)
                 else
                     message.message = messageMap[Constantes.KEY_MESSAGE].toString()
+
                 message.timestamp = getReadableLocalDateTime(dateTimeTemp)
 
                 if(message.senderId == preferenceManager.getString(Constantes.KEY_EMAIL) && message.receiverId == receiverUser.Email)
