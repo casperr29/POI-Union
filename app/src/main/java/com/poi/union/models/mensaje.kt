@@ -11,7 +11,8 @@ class mensaje(
     var message: String = "",
     var timestamp: String = "",
     var dateObject: Date? = null,
-    var imagen:String? = null
+    var imagen:String? = null,
+    var isEncrypted: Boolean = false
 ) {
     @Exclude
     var esMio: Boolean = false
